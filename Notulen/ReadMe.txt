@@ -1,0 +1,1 @@
+Alleen notulen(ieder week) mogen hier neergezet worden.
