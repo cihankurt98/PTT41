@@ -7,32 +7,66 @@ VAR
     //uit1 AT%Q*:BOOL;
 	Timer1 :TON;
 	Start :BOOL;
-	
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[Timer1(IN:=Start, PT:=T#1000MS);
-trigger(clk:=GVL_IO.Start_button);
 
-IF trigger.Q  THEN
-	Start:= TRUE;
+//IF GVL_IO.Start_button  THEN
+//	Start:= TRUE;
+//	GVL_IO.Aplus_Vert_axis_downwards:= TRUE;
+//	ELSE
+//		Start:= FALSE;
+//		GVL_IO.Aplus_Vert_axis_downwards:= FALSE;
+//END_IF
+IF GVL_IO.Start_button THEN
+	//GVL_IO.SETUPX_ORIGIN_tableX:= TRUE;
+	//GVL_IO.INX1_from_Input1_tableX:= TRUE;
+	//GVL_IO.SVONX_SERVO_ON_tableX:= TRUE;
+	//GVL_IO.DRIVEX_MOVE_tableX:= TRUE;
+	GVL_IO.INY0_from_Input0_translY := TRUE;
+	GVL_IO.INY1_from_Input1_translY := TRUE;
+	GVL_IO.INX1_from_Input1_tableX := TRUE;
+	GVL_IO.SETUPX_ORIGIN_tableX:= TRUE;
+	GVL_IO.SETONY_ORIGIN_translationY:= TRUE;
+	ELSE
+		GVL_IO.INY0_from_Input0_translY:= FALSE;
+		GVL_IO.DRIVEY_MOVE_translY:= FALSE;
+		GVL_IO.SVONY_SERVO_ON_translY:= FALSE; 
+	END_IF
+
+IF GVL_IO.a_1_Vertical_Zaxis_downward THEN
 	GVL_IO.Vplus_Vacuum_start:= TRUE;
-	GVL_IO.Aplus_Vert_axis_downwards:= TRUE;
+END_IF
 
-
+IF GVL_IO.a_0_Vertical_Zaxis_upward THEN
+	GVL_IO.Vplus_Vacuum_start:= FALSE;
 END_IF
 	
 ]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="60" Count="0" />
-      <LineId Id="63" Count="0" />
-      <LineId Id="61" Count="0" />
-      <LineId Id="57" Count="1" />
-      <LineId Id="33" Count="0" />
-      <LineId Id="46" Count="0" />
-      <LineId Id="50" Count="1" />
+      <LineId Id="103" Count="6" />
+      <LineId Id="77" Count="0" />
+      <LineId Id="110" Count="0" />
+      <LineId Id="113" Count="0" />
+      <LineId Id="126" Count="0" />
+      <LineId Id="128" Count="1" />
+      <LineId Id="139" Count="0" />
+      <LineId Id="156" Count="1" />
+      <LineId Id="131" Count="1" />
+      <LineId Id="134" Count="0" />
+      <LineId Id="138" Count="0" />
+      <LineId Id="135" Count="0" />
+      <LineId Id="137" Count="0" />
+      <LineId Id="136" Count="0" />
+      <LineId Id="81" Count="0" />
+      <LineId Id="80" Count="0" />
+      <LineId Id="78" Count="0" />
       <LineId Id="34" Count="0" />
+      <LineId Id="92" Count="2" />
+      <LineId Id="91" Count="0" />
       <LineId Id="15" Count="0" />
       <LineId Id="14" Count="0" />
     </LineIds>
