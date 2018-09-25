@@ -1,0 +1,9 @@
+- We hebben een sensor die ter hoogte van een deksel zit. 
+  Als deze sensor niks detecteert, is er iets niet goed gegaan in het andere station.
+
+- We hebben een vacuum zuiger die omhoog en omlaag kan en aan en uit kan. 
+  Deze zuigt de potjes (met een deksel) omhoog. 
+
+- We hebben twee assen (X, Y) die de positie van de vacuum zuiger bepalen. 
+  De pallet heeft verschillende nummers om te positioneren. 
+

@@ -1,34 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.11">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
   <POU Name="MAIN" Id="{a4f99ad4-3d99-4cc3-aec6-4b8f25d45e95}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-	ing1 AT %I* :BOOL;
-	ing2 AT %I* :BOOL;
-	ing3 AT %I* :BOOL;
-	ing4 AT %I* :BOOL;
-    uit1 AT%Q*:BOOL;
-	uit2 AT%Q*:BOOL;
-	uit3 AT%Q*:BOOL;
-	uit4 AT%Q*:BOOL;
-	
+	//ing1 AT %I* :BOOL;
+    //uit1 AT%Q*:BOOL;
+	//VPlusStart:BOOL;
 	
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[
-	uit1:= ing1;
-	uit2:= ing1;
-	uit3:= ing1;
-	uit4:= ing1;
-	
+      <ST><![CDATA[IF GVL_IO.Start_button:= TRUE THEN
+	GVL_IO.Vplus_Vacuum_start:= TRUE;
+	ELSE
+		GVL_IO.Vplus_Vacuum_start:= FALSE;
+END_IF
 	
 ]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="2" Count="0" />
-      <LineId Id="13" Count="0" />
-      <LineId Id="16" Count="3" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="33" Count="0" />
+      <LineId Id="35" Count="1" />
+      <LineId Id="34" Count="0" />
       <LineId Id="15" Count="0" />
       <LineId Id="14" Count="0" />
     </LineIds>
