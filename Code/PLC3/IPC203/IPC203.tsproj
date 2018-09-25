@@ -321,9 +321,9 @@
 				<Name>Device 3 (EtherCAT)</Name>
 				<AddressInfo>
 					<Pnp>
-						<DeviceDesc>Ethernet 2 (Sitecom USB to Gigabit LAN LN-031 Ether</DeviceDesc>
-						<DeviceName>\DEVICE\{6E47710E-0C65-4887-A7E3-A534577BA0FE}</DeviceName>
-						<DeviceData>000cf6bee0be</DeviceData>
+						<DeviceDesc>Local Area Connection (TwinCAT-Intel PCI Ethernet A</DeviceDesc>
+						<DeviceName>\DEVICE\{A75BCE4E-5A00-4E91-A03D-3913FA6B60DD}</DeviceName>
+						<DeviceData>ec8eb5f901a7</DeviceData>
 					</Pnp>
 				</AddressInfo>
 				<Image Id="3" AddrType="9" ImageType="3">
@@ -693,11 +693,49 @@
 						<EtherCAT CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x23333050" InfoDataState="false" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL9011 End Terminal" Desc="EL9011" PortABoxInfo="#x0100000b"/>
 					</Box>
 				</Box>
-				<EtherCAT DeviceDesc="Ethernet 2 (Sitecom USB to Gigabit LAN LN-031 Ether"/>
+				<EtherCAT DeviceDesc="Local Area Connection (TwinCAT-Intel PCI Ethernet Adapter (Gigabit))"/>
 			</Device>
 		</Io>
 	</Project>
 	<Mappings>
 		<MappingInfo Identifier="{00000000-2001-0850-0020-500830000403}" Id="#x02030010"/>
+		<OwnerA Name="TIPC^PLC3^PLC3 Instance">
+			<OwnerB Name="TIID^Device 3 (EtherCAT)^Term 7 (EK1100)^Term 10 (EL2809)">
+				<Link VarA="PlcTask Outputs^GVL_IO.Aplus_Vert_axis_downwards" VarB="Channel 2^Output"/>
+				<Link VarA="PlcTask Outputs^GVL_IO.BR_Alarm_light" VarB="Channel 1^Output"/>
+				<Link VarA="PlcTask Outputs^GVL_IO.DRIVEX_MOVE_tableX" VarB="Channel 10^Output"/>
+				<Link VarA="PlcTask Outputs^GVL_IO.DRIVEY_MOVE_translY" VarB="Channel 16^Output"/>
+				<Link VarA="PlcTask Outputs^GVL_IO.HOLD_STOP_tableX_AND_translY" VarB="Channel 9^Output"/>
+				<Link VarA="PlcTask Outputs^GVL_IO.INX0_from_Input0_tableX" VarB="Channel 4^Output"/>
+				<Link VarA="PlcTask Outputs^GVL_IO.INX1_from_Input1_tableX" VarB="Channel 5^Output"/>
+				<Link VarA="PlcTask Outputs^GVL_IO.INX2_from_Input2_tableX" VarB="Channel 6^Output"/>
+				<Link VarA="PlcTask Outputs^GVL_IO.INY0_from_Input0_translY" VarB="Channel 11^Output"/>
+				<Link VarA="PlcTask Outputs^GVL_IO.INY1_from_Input1_translY" VarB="Channel 12^Output"/>
+				<Link VarA="PlcTask Outputs^GVL_IO.INY2_from_Input2_translY" VarB="Channel 13^Output"/>
+				<Link VarA="PlcTask Outputs^GVL_IO.SETUPX_ORIGIN_tableX" VarB="Channel 8^Output"/>
+				<Link VarA="PlcTask Outputs^GVL_IO.SETUPY_ORIGIN_translY" VarB="Channel 15^Output"/>
+				<Link VarA="PlcTask Outputs^GVL_IO.SVONX_SERVO_ON_tableX" VarB="Channel 7^Output"/>
+				<Link VarA="PlcTask Outputs^GVL_IO.SVONY_SERVO_ON_translY" VarB="Channel 14^Output"/>
+				<Link VarA="PlcTask Outputs^GVL_IO.Vplus_Vacuum_start" VarB="Channel 3^Output"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 3 (EtherCAT)^Term 7 (EK1100)^Term 8 (EL1809)">
+				<Link VarA="PlcTask Inputs^GVL_IO.ALARMX_ALARM_tableX" VarB="Channel 11^Input"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.ALARMY_ALARM_translationY" VarB="Channel 15^Input"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.Auto_I_Manual_II_switch" VarB="Channel 3^Input"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.BUSYX_BUSY_tableX" VarB="Channel 9^Input"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.BUSYY_BUSY_traslationY" VarB="Channel 13^Input"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.EMERX_EMERGENCY_tableX" VarB="Channel 12^Input"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.EMERY_EMERGENCY_translationY" VarB="Channel 16^Input"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.Reset_button" VarB="Channel 4^Input"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.SETONX_ORIGIN_tableX" VarB="Channel 10^Input"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.SETONY_ORIGIN_translationY" VarB="Channel 14^Input"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.Start_button" VarB="Channel 1^Input"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.Stop_button" VarB="Channel 2^Input"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.a_0_Vertical_Zaxis_upward" VarB="Channel 5^Input"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.a_1_Vertical_Zaxis_downward" VarB="Channel 6^Input"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.dp1_Can_detection" VarB="Channel 7^Input"/>
+				<Link VarA="PlcTask Inputs^GVL_IO.dp2_Cover_detection" VarB="Channel 8^Input"/>
+			</OwnerB>
+		</OwnerA>
 	</Mappings>
 </TcSmProject>

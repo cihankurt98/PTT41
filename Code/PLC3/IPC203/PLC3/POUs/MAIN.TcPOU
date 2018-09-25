@@ -5,23 +5,33 @@
 VAR
 	//ing1 AT %I* :BOOL;
     //uit1 AT%Q*:BOOL;
-	//VPlusStart:BOOL;
+	Timer1 :TON;
+	Start :BOOL;
 	
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF GVL_IO.Start_button:= TRUE THEN
+      <ST><![CDATA[Timer1(IN:=Start, PT:=T#1000MS);
+trigger(clk:=GVL_IO.Start_button);
+
+IF trigger.Q  THEN
+	Start:= TRUE;
 	GVL_IO.Vplus_Vacuum_start:= TRUE;
-	ELSE
-		GVL_IO.Vplus_Vacuum_start:= FALSE;
+	GVL_IO.Aplus_Vert_axis_downwards:= TRUE;
+
+
 END_IF
 	
 ]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="19" Count="0" />
+      <LineId Id="60" Count="0" />
+      <LineId Id="63" Count="0" />
+      <LineId Id="61" Count="0" />
+      <LineId Id="57" Count="1" />
       <LineId Id="33" Count="0" />
-      <LineId Id="35" Count="1" />
+      <LineId Id="46" Count="0" />
+      <LineId Id="50" Count="1" />
       <LineId Id="34" Count="0" />
       <LineId Id="15" Count="0" />
       <LineId Id="14" Count="0" />
