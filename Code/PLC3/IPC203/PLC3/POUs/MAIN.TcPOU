@@ -7,10 +7,18 @@ VAR
     //uit1 AT%Q*:BOOL;
 	Timer1 :TON;
 	Start :BOOL;
+<<<<<<< Updated upstream
+=======
+	
+	trigger: INT;
+	clk: INT;
+	Q: INT;
+>>>>>>> Stashed changes
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[Timer1(IN:=Start, PT:=T#1000MS);
+<<<<<<< Updated upstream
 
 //IF GVL_IO.Start_button  THEN
 //	Start:= TRUE;
@@ -34,6 +42,15 @@ IF GVL_IO.Start_button THEN
 		GVL_IO.DRIVEY_MOVE_translY:= FALSE;
 		GVL_IO.SVONY_SERVO_ON_translY:= FALSE; 
 	END_IF
+=======
+trigger1(clk:=GVL_IO.Start_button);
+
+
+IF trigger.Q THEN
+	Start:= TRUE;
+	GVL_IO.Vplus_Vacuum_start:= TRUE;
+	GVL_IO.Aplus_Vert_axis_downwards:= TRUE;
+>>>>>>> Stashed changes
 
 IF GVL_IO.a_1_Vertical_Zaxis_downward THEN
 	GVL_IO.Vplus_Vacuum_start:= TRUE;
@@ -47,6 +64,7 @@ END_IF
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="60" Count="0" />
+<<<<<<< Updated upstream
       <LineId Id="103" Count="6" />
       <LineId Id="77" Count="0" />
       <LineId Id="110" Count="0" />
@@ -64,6 +82,15 @@ END_IF
       <LineId Id="81" Count="0" />
       <LineId Id="80" Count="0" />
       <LineId Id="78" Count="0" />
+=======
+      <LineId Id="63" Count="0" />
+      <LineId Id="73" Count="0" />
+      <LineId Id="61" Count="0" />
+      <LineId Id="57" Count="1" />
+      <LineId Id="33" Count="0" />
+      <LineId Id="46" Count="0" />
+      <LineId Id="50" Count="1" />
+>>>>>>> Stashed changes
       <LineId Id="34" Count="0" />
       <LineId Id="92" Count="2" />
       <LineId Id="91" Count="0" />
