@@ -3,6 +3,7 @@
   <POU Name="MAIN" Id="{a4f99ad4-3d99-4cc3-aec6-4b8f25d45e95}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
+<<<<<<< HEAD
 
 	Timer1 :TON;
 	Timer2 : TON;
@@ -228,6 +229,57 @@ END_CASE	]]></ST>
       <LineId Id="730" Count="0" />
       <LineId Id="742" Count="5" />
       <LineId Id="641" Count="0" />
+=======
+	timer1 :TP;
+	timer2 :TP;
+	Init  :BOOL;
+	BusyFTrigX : F_Trig;
+	BusyFTrigY : F_Trig;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[gvl_io.SVONX_SERVO_ON_tableX:= TRUE;
+gvl_io.SVONY_SERVO_ON_translY:= TRUE;
+
+timer1 (IN:= gvl_io.Start_button , PT:= T#150MS);
+GVL_IO.SETUPX_ORIGIN_tableX:= timer1.Q;
+gvl_IO.SETUPY_ORIGIN_translY:= timer1.Q;
+BusyFTrigX (clk :=gvl_io.BUSYX_BUSY_tableX ); 
+BusyFTrigY (clk :=gvl_io.BUSYY_BUSY_traslationY );
+
+IF NOT gvl_io.Stop_button THEN 
+	gvl_io.INX0_from_Input0_tableX:= FALSE;
+	gvl_io.INX1_from_Input1_tableX:= false;
+	gvl_io.INX2_from_Input2_tableX:= true;
+	gvl_io.INY0_from_Input0_translY:= TRUE;
+	gvl_io.INY1_from_Input1_translY:= FALSE;
+	gvl_io.INY2_from_Input2_translY:= TRUE;
+	timer1 (IN:= gvl_io.Start_button , PT:= T#150MS);
+	gvl_io.DRIVEX_MOVE_tableX:= TRUE;
+	gvl_io.DRIVEY_MOVE_translY:= TRUE;		 
+ END_IF
+		 
+ IF gvl_io.Reset_button THEN
+	 gvl_io.DRIVEX_MOVE_tableX:= FALSE;
+	gvl_io.DRIVEY_MOVE_translY:= FALSE;
+ END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="335" Count="1" />
+      <LineId Id="339" Count="4" />
+      <LineId Id="301" Count="0" />
+      <LineId Id="317" Count="0" />
+      <LineId Id="316" Count="0" />
+      <LineId Id="306" Count="5" />
+      <LineId Id="315" Count="0" />
+      <LineId Id="312" Count="0" />
+      <LineId Id="304" Count="0" />
+      <LineId Id="300" Count="0" />
+      <LineId Id="334" Count="0" />
+      <LineId Id="319" Count="1" />
+      <LineId Id="322" Count="0" />
+      <LineId Id="321" Count="0" />
+>>>>>>> master
     </LineIds>
   </POU>
 </TcPlcObject>
