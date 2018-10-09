@@ -8,63 +8,47 @@ VAR
 	Init  :BOOL;
 	BusyFTrigX : F_Trig;
 	BusyFTrigY : F_Trig;
-	
-	
-	
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[	gvl_io.SVONX_SERVO_ON_tableX:= TRUE;
-	gvl_io.SVONY_SERVO_ON_translY:= TRUE;
+      <ST><![CDATA[gvl_io.SVONX_SERVO_ON_tableX:= TRUE;
+gvl_io.SVONY_SERVO_ON_translY:= TRUE;
 
-	
+timer1 (IN:= gvl_io.Start_button , PT:= T#150MS);
+GVL_IO.SETUPX_ORIGIN_tableX:= timer1.Q;
+gvl_IO.SETUPY_ORIGIN_translY:= timer1.Q;
+BusyFTrigX (clk :=gvl_io.BUSYX_BUSY_tableX ); 
+BusyFTrigY (clk :=gvl_io.BUSYY_BUSY_traslationY );
 
-		timer1 (IN:= gvl_io.Start_button , PT:= T#150MS);
-		GVL_IO.SETUPX_ORIGIN_tableX:= timer1.Q;
-	     gvl_IO.SETUPY_ORIGIN_translY:= timer1.Q;
-		 BusyFTrigX (clk :=gvl_io.BUSYX_BUSY_tableX ); 
-		 BusyFTrigY (clk :=gvl_io.BUSYY_BUSY_traslationY );
-
-IF NOT gvl_io.Stop_button THEN
- 
+IF NOT gvl_io.Stop_button THEN 
+	gvl_io.INX0_from_Input0_tableX:= FALSE;
+	gvl_io.INX1_from_Input1_tableX:= false;
+	gvl_io.INX2_from_Input2_tableX:= true;
+	gvl_io.INY0_from_Input0_translY:= TRUE;
+	gvl_io.INY1_from_Input1_translY:= FALSE;
+	gvl_io.INY2_from_Input2_translY:= TRUE;
+	timer1 (IN:= gvl_io.Start_button , PT:= T#150MS);
+	gvl_io.DRIVEX_MOVE_tableX:= TRUE;
+	gvl_io.DRIVEY_MOVE_translY:= TRUE;		 
+ END_IF
 		 
-			gvl_io.INX0_from_Input0_tableX:= FALSE;
-			gvl_io.INX1_from_Input1_tableX:= false;
-			gvl_io.INX2_from_Input2_tableX:= true;
-			gvl_io.INY0_from_Input0_translY:= TRUE;
-			gvl_io.INY1_from_Input1_translY:= FALSE;
-			gvl_io.INY2_from_Input2_translY:= TRUE;
-			timer1 (IN:= gvl_io.Start_button , PT:= T#150MS);
-			gvl_io.DRIVEX_MOVE_tableX:= TRUE;
-			gvl_io.DRIVEY_MOVE_translY:= TRUE;
-	
-		 
-		 END_IF
-		 IF gvl_io.Reset_button THEN
-			 gvl_io.DRIVEX_MOVE_tableX:= FALSE;
-			gvl_io.DRIVEY_MOVE_translY:= FALSE;
-		 END_IF]]></ST>
+ IF gvl_io.Reset_button THEN
+	 gvl_io.DRIVEX_MOVE_tableX:= FALSE;
+	gvl_io.DRIVEY_MOVE_translY:= FALSE;
+ END_IF]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="291" Count="0" />
-      <LineId Id="290" Count="0" />
-      <LineId Id="110" Count="0" />
-      <LineId Id="165" Count="0" />
-      <LineId Id="179" Count="0" />
-      <LineId Id="239" Count="0" />
-      <LineId Id="294" Count="1" />
-      <LineId Id="254" Count="0" />
+      <LineId Id="335" Count="1" />
+      <LineId Id="339" Count="4" />
       <LineId Id="301" Count="0" />
       <LineId Id="317" Count="0" />
       <LineId Id="316" Count="0" />
-      <LineId Id="318" Count="0" />
-      <LineId Id="302" Count="0" />
       <LineId Id="306" Count="5" />
       <LineId Id="315" Count="0" />
       <LineId Id="312" Count="0" />
-      <LineId Id="304" Count="1" />
-      <LineId Id="313" Count="0" />
+      <LineId Id="304" Count="0" />
       <LineId Id="300" Count="0" />
+      <LineId Id="334" Count="0" />
       <LineId Id="319" Count="1" />
       <LineId Id="322" Count="0" />
       <LineId Id="321" Count="0" />
