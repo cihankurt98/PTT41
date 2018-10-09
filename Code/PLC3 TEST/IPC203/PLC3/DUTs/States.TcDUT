@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <DUT Name="States" Id="{27b41ea7-0afd-4559-8ac7-01b9f3b8d6f2}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE States :
+(
+	Init := 0,
+	Idle,
+	MoveToPickUp,
+	PickUpDown,
+	PickUpUp,
+	MoveX,
+	MoveY,
+	DropDown,
+	DropUp,
+	PalletFull
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
