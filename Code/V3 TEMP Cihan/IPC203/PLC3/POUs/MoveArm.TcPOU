@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="MoveArm" Id="{8fe6f7ad-1462-49f4-8be6-2207ea7ab0e7}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK MoveArm
+VAR_INPUT
+Position: INT;
+END_VAR
+VAR_OUTPUT
+	OnNewLocation:BOOL;
+END_VAR
+VAR
+	X: INT;
+	Y: INT;
+	StartTimer:BOOL;
+	
+	
+	PulseTimer2: TP;
+	BusyFtrigX : F_Trig;
+	BusyFtrigY : F_Trig;
+	ReadyX : BOOL;
+	ReadyY : BOOL;
+	Busy: BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[OnNewLocation := FALSE;
+
+IF( Position < 1 OR Position > 30)  
+	THEN RETURN; 
+END_IF
+
+// Calculate X & Y position on Palletiser
+// 
+X := (Position - 1) MOD 5;
+
+// Position-1 / 5 with ROUND to floor 
+Y := ((Position -1) / 5) - ((Position -1) / 5) MOD 1;
+
+// set position 
+GVL_IO.INX0_from_Input0_tableX:= X.0;
+GVL_IO.INX1_from_Input1_tableX:= X.1;
+GVL_IO.INX2_from_Input2_tableX:= X.2;
+GVL_IO.INY0_from_Input0_translY:= Y.0;
+GVL_IO.INY1_from_Input1_translY:= Y.1;
+GVL_IO.INY2_from_Input2_translY:= Y.2;
+
+
+
+PulseTimer2(IN:=StartTimer, PT:=T#150MS);
+
+GVL_IO.DRIVEX_MOVE_tableX := PulseTimer2.Q;
+GVL_IO.DRIVEY_MOVE_translY := PulseTimer2.Q;
+StartTimer:= TRUE;
+		
+BusyFtrigX ( clk := gvl_io.BUSYX_BUSY_tableX ); 
+BusyFtrigY ( clk := gvl_io.BUSYY_BUSY_traslationY );
+		
+IF BusyFtrigX.Q THEN
+	ReadyX:= TRUE;
+END_IF
+		
+IF BusyFtrigY.Q THEN
+	ReadyY:= TRUE;
+END_IF
+		
+IF ReadyY AND ReadyX THEN
+	GVL_IO.DRIVEX_MOVE_tableX := FALSE;
+	GVL_IO.DRIVEY_MOVE_translY := FALSE;
+	ReadyX:= FALSE;
+	ReadyY:= FALSE;
+	StartTimer:= FALSE;
+	OnNewLocation := TRUE;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="MoveArm">
+      <LineId Id="110" Count="1" />
+      <LineId Id="10" Count="4" />
+      <LineId Id="16" Count="1" />
+      <LineId Id="102" Count="0" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="93" Count="0" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="26" Count="0" />
+      <LineId Id="48" Count="1" />
+      <LineId Id="47" Count="0" />
+      <LineId Id="50" Count="1" />
+      <LineId Id="107" Count="1" />
+      <LineId Id="91" Count="1" />
+      <LineId Id="59" Count="2" />
+      <LineId Id="114" Count="0" />
+      <LineId Id="62" Count="0" />
+      <LineId Id="94" Count="1" />
+      <LineId Id="66" Count="0" />
+      <LineId Id="68" Count="7" />
+      <LineId Id="77" Count="4" />
+      <LineId Id="113" Count="0" />
+      <LineId Id="109" Count="0" />
+      <LineId Id="58" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

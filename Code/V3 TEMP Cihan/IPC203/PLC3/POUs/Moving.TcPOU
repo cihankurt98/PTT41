@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="Moving" Id="{398a761a-5c1a-4f67-95e6-29bf851a4f5a}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC Moving
+VAR_INPUT
+	Position:INT;
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	Busy: BOOL;
+	PulseTimer2: TP;
+	
+	BusyFtrigX : F_Trig;
+	BusyFtrigY : F_Trig;
+	
+	ReadyX : BOOL;
+	ReadyY : BOOL;
+	X:REAL;
+	Y:REAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[PulseTimer2(IN:=Busy, PT:=T#150MS);
+
+Busy := TRUE;
+		
+		
+		X:= (Position - 1) MOD 5;
+		Y:= ((Position - 1) - X) / 5;
+		
+		
+		
+		
+		
+
+		GVL_IO.DRIVEX_MOVE_tableX := PulseTimer2.Q;
+		GVL_IO.DRIVEY_MOVE_translY := PulseTimer2.Q;
+		
+		//// Koppelen van outputs Busy aan var's. Triggered op een falling edge.
+	   	BusyFtrigX ( clk := gvl_io.BUSYX_BUSY_tableX ); 
+	  	BusyFtrigY ( clk := gvl_io.BUSYY_BUSY_traslationY );
+		
+		// Bools setten aan de hand van triggers.
+		IF BusyFtrigX.Q THEN
+			ReadyX:= TRUE;
+		END_IF
+		
+		IF BusyFtrigY.Q THEN
+			ReadyY:= TRUE;
+		END_IF
+		
+		// Init voltooid ga naar idle
+		IF ReadyY AND ReadyX THEN
+			GVL_IO.DRIVEX_MOVE_tableX := FALSE;
+			GVL_IO.DRIVEY_MOVE_translY := FALSE;
+			ReadyX:= FALSE;
+			ReadyY:= FALSE;
+			Busy:= FALSE;
+			//CurrentState := States.PickUpDown;
+		END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="Moving">
+      <LineId Id="43" Count="1" />
+      <LineId Id="10" Count="0" />
+      <LineId Id="55" Count="0" />
+      <LineId Id="260" Count="0" />
+      <LineId Id="262" Count="1" />
+      <LineId Id="269" Count="0" />
+      <LineId Id="266" Count="0" />
+      <LineId Id="265" Count="0" />
+      <LineId Id="264" Count="0" />
+      <LineId Id="57" Count="0" />
+      <LineId Id="16" Count="23" />
+      <LineId Id="241" Count="0" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
