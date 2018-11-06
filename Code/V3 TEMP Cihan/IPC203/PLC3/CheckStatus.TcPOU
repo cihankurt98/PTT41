@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="CheckStatus" Id="{c3ef0c3f-40cd-4ce4-a305-43916db7ede3}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK CheckStatus
+VAR_INPUT
+	Position :INT;
+END_VAR
+VAR_OUTPUT
+	Occupied : BOOL;
+END_VAR
+VAR
+	PalletArray: ARRAY [1..29] OF BOOL := [29(FALSE)];
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <LineIds Name="CheckStatus">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

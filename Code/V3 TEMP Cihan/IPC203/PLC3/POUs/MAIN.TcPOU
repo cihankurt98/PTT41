@@ -5,6 +5,7 @@
 VAR
 	Timer1 :TON;
 	Timer2 : TON;
+	Timer3 : TON;
 	PulseTimer1 : TP;
 
 	CurrentState  : States;
@@ -15,18 +16,21 @@ VAR
 	//Eigen trigger booleans
 	InitYReady : BOOL;
 	InitXReady : BOOL;
+	testbool : BOOL; //test
+	
+	TimerTest1 : TIME;
+	TimerResult : TIME;
 	
 	Move_Arm : MoveArm;
 
-	Test : Moving;
 	Pos : INT;
-	ActualPos : int;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[PulseTimer1(IN:=GVL_IO.Start_button, PT:=T#150MS);
-
 Timer1(IN:= GVL_IO.a_1_Vertical_Zaxis_downward, PT:= T#10MS);
+Timer2(IN:=GVL_IO.a_1_Vertical_Zaxis_downward, PT:=T#10MS);
+Timer3(IN:=testbool, PT:=T#275MS);
 
 CASE CurrentState OF
 States.Init:
@@ -55,7 +59,6 @@ States.Init:
 		// Init voltooid ga naar idle
 		IF InitXReady AND InitYReady THEN
 			Pos:= 1;
-			ActualPos:= 0;
 			CurrentState:= States.Idle;
 		END_IF
 		
@@ -75,7 +78,6 @@ States.Idle:
 		
 States.MoveToPickUp:
 	    Move_Arm(Position:= 30);
-		//Test(Position:=0);
 		IF Move_Arm.OnNewLocation THEN
 			CurrentState := States.PickUpDown;
 		END_IF
@@ -103,26 +105,39 @@ States.PickUpUp:
 		END_IF
 		
 States.Moving:
+		IF GVL_IO.a_0_Vertical_Zaxis_upward THEN
+			
 		Move_Arm(Position:= Pos);
-		//Test(Position:=Pos);
 		IF Move_Arm.OnNewLocation THEN
 			Pos:= Pos + 1;
-			ActualPos:= ActualPos + 1;
 			CurrentState := States.DropDown;
+		END_IF
 		END_IF
 		
 States.DropDown:
 		IF GVL_IO.a_0_Vertical_Zaxis_upward THEN
 			GVL_IO.Aplus_Vert_axis_downwards := TRUE;
+			testbool := TRUE;
+			TimerTest1 := TIME();
 		END_IF
+		
 		
 		IF 	GVL_IO.a_1_Vertical_Zaxis_downward THEN
 			GVL_IO.Vplus_Vacuum_start := FALSE;
-			Timer2(IN:=GVL_IO.a_1_Vertical_Zaxis_downward, PT:=T#10MS);
 			IF Timer2.Q THEN
+				TimerResult := TIME() - TimerTest1;
+				testbool := FALSE;
 				CurrentState := States.DropUp;
 			END_IF
+		ELSE IF Timer3.Q AND NOT GVL_IO.a_1_Vertical_Zaxis_downward THEN
+		GVL_io.Aplus_Vert_axis_downwards := FALSE;
+		testbool := FALSE;
+		CurrentState := States.ManualCheck;
 		END_IF
+		
+			
+		END_IF
+		
 
 
 States.DropUp:
@@ -134,38 +149,60 @@ States.DropUp:
 			CurrentState := States.Idle;
 		END_IF
 		
-States.PalletFull:
+States.ManualCheck:
 		GVL_IO.BR_Alarm_light := TRUE;
+		GVL_io.Vplus_Vacuum_start := FALSE;
 		IF GVL_IO.Reset_button THEN
 			GVL_IO.BR_Alarm_light := FALSE;
-			Pos := 1;
-			ActualPos := 0;
 			Currentstate := States.Idle;
 		END_IF
 END_CASE	]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="860" Count="0" />
-      <LineId Id="862" Count="29" />
-      <LineId Id="1045" Count="0" />
+      <LineId Id="863" Count="0" />
+      <LineId Id="1106" Count="0" />
+      <LineId Id="1124" Count="0" />
+      <LineId Id="864" Count="27" />
       <LineId Id="1035" Count="0" />
-      <LineId Id="892" Count="16" />
+      <LineId Id="892" Count="1" />
+      <LineId Id="1103" Count="0" />
+      <LineId Id="895" Count="13" />
       <LineId Id="1020" Count="0" />
-      <LineId Id="1018" Count="0" />
       <LineId Id="1024" Count="2" />
       <LineId Id="940" Count="0" />
       <LineId Id="1070" Count="0" />
       <LineId Id="941" Count="21" />
-      <LineId Id="1069" Count="0" />
-      <LineId Id="1029" Count="1" />
-      <LineId Id="1034" Count="0" />
-      <LineId Id="1046" Count="0" />
-      <LineId Id="1031" Count="0" />
-      <LineId Id="963" Count="0" />
-      <LineId Id="967" Count="22" />
-      <LineId Id="1036" Count="4" />
-      <LineId Id="1043" Count="0" />
-      <LineId Id="1047" Count="0" />
+      <LineId Id="1171" Count="0" />
+      <LineId Id="1174" Count="0" />
+      <LineId Id="1159" Count="3" />
+      <LineId Id="1157" Count="0" />
+      <LineId Id="1176" Count="0" />
+      <LineId Id="967" Count="1" />
+      <LineId Id="1093" Count="0" />
+      <LineId Id="970" Count="0" />
+      <LineId Id="1154" Count="1" />
+      <LineId Id="1092" Count="0" />
+      <LineId Id="1111" Count="0" />
+      <LineId Id="972" Count="2" />
+      <LineId Id="976" Count="0" />
+      <LineId Id="1146" Count="0" />
+      <LineId Id="1141" Count="0" />
+      <LineId Id="977" Count="1" />
+      <LineId Id="1164" Count="4" />
+      <LineId Id="1137" Count="0" />
+      <LineId Id="1163" Count="0" />
+      <LineId Id="979" Count="0" />
+      <LineId Id="1130" Count="0" />
+      <LineId Id="1098" Count="0" />
+      <LineId Id="981" Count="1" />
+      <LineId Id="1095" Count="0" />
+      <LineId Id="984" Count="0" />
+      <LineId Id="1094" Count="0" />
+      <LineId Id="986" Count="3" />
+      <LineId Id="1036" Count="2" />
+      <LineId Id="1177" Count="0" />
+      <LineId Id="1039" Count="1" />
       <LineId Id="1042" Count="0" />
       <LineId Id="1041" Count="0" />
       <LineId Id="641" Count="0" />
