@@ -1,0 +1,13 @@
+C:\Users\Matthew\Source\Repos\PLC-CommunicationApp\PLC-CommunicationApp\bin\Debug\PLC-CommunicationApp.exe.config
+C:\Users\Matthew\Source\Repos\PLC-CommunicationApp\PLC-CommunicationApp\bin\Debug\PLC-CommunicationApp.exe
+C:\Users\Matthew\Source\Repos\PLC-CommunicationApp\PLC-CommunicationApp\bin\Debug\PLC-CommunicationApp.pdb
+C:\Users\Matthew\Source\Repos\PLC-CommunicationApp\PLC-CommunicationApp\bin\Debug\M2Mqtt.Net.dll
+C:\Users\Matthew\Source\Repos\PLC-CommunicationApp\PLC-CommunicationApp\bin\Debug\M2Mqtt.Net.pdb
+C:\Users\Matthew\Source\Repos\PLC-CommunicationApp\PLC-CommunicationApp\obj\Debug\PLC-CommunicationApp.csprojAssemblyReference.cache
+C:\Users\Matthew\Source\Repos\PLC-CommunicationApp\PLC-CommunicationApp\obj\Debug\PLC_CommunicationApp.Form1.resources
+C:\Users\Matthew\Source\Repos\PLC-CommunicationApp\PLC-CommunicationApp\obj\Debug\PLC_CommunicationApp.Properties.Resources.resources
+C:\Users\Matthew\Source\Repos\PLC-CommunicationApp\PLC-CommunicationApp\obj\Debug\PLC-CommunicationApp.csproj.GenerateResource.cache
+C:\Users\Matthew\Source\Repos\PLC-CommunicationApp\PLC-CommunicationApp\obj\Debug\PLC-CommunicationApp.csproj.CoreCompileInputs.cache
+C:\Users\Matthew\Source\Repos\PLC-CommunicationApp\PLC-CommunicationApp\obj\Debug\PLC-CommunicationApp.csproj.CopyComplete
+C:\Users\Matthew\Source\Repos\PLC-CommunicationApp\PLC-CommunicationApp\obj\Debug\PLC-CommunicationApp.exe
+C:\Users\Matthew\Source\Repos\PLC-CommunicationApp\PLC-CommunicationApp\obj\Debug\PLC-CommunicationApp.pdb
