@@ -1,0 +1,10 @@
+D:\OneDrive - Office 365 Fontys\_FONTYS\18-19nj_Semester4\PPT\IPC_200_CSharp_communication\IPC_200_test\bin\Debug\IPC_200_test.exe.config
+D:\OneDrive - Office 365 Fontys\_FONTYS\18-19nj_Semester4\PPT\IPC_200_CSharp_communication\IPC_200_test\bin\Debug\IPC_200_test.exe
+D:\OneDrive - Office 365 Fontys\_FONTYS\18-19nj_Semester4\PPT\IPC_200_CSharp_communication\IPC_200_test\bin\Debug\IPC_200_test.pdb
+D:\OneDrive - Office 365 Fontys\_FONTYS\18-19nj_Semester4\PPT\IPC_200_CSharp_communication\IPC_200_test\obj\Debug\IPC-201-WinIOT_Communicator.csprojAssemblyReference.cache
+D:\OneDrive - Office 365 Fontys\_FONTYS\18-19nj_Semester4\PPT\IPC_200_CSharp_communication\IPC_200_test\obj\Debug\IPC_200_test.Form1.resources
+D:\OneDrive - Office 365 Fontys\_FONTYS\18-19nj_Semester4\PPT\IPC_200_CSharp_communication\IPC_200_test\obj\Debug\IPC_200_test.Properties.Resources.resources
+D:\OneDrive - Office 365 Fontys\_FONTYS\18-19nj_Semester4\PPT\IPC_200_CSharp_communication\IPC_200_test\obj\Debug\IPC-201-WinIOT_Communicator.csproj.GenerateResource.cache
+D:\OneDrive - Office 365 Fontys\_FONTYS\18-19nj_Semester4\PPT\IPC_200_CSharp_communication\IPC_200_test\obj\Debug\IPC-201-WinIOT_Communicator.csproj.CoreCompileInputs.cache
+D:\OneDrive - Office 365 Fontys\_FONTYS\18-19nj_Semester4\PPT\IPC_200_CSharp_communication\IPC_200_test\obj\Debug\IPC_200_test.exe
+D:\OneDrive - Office 365 Fontys\_FONTYS\18-19nj_Semester4\PPT\IPC_200_CSharp_communication\IPC_200_test\obj\Debug\IPC_200_test.pdb

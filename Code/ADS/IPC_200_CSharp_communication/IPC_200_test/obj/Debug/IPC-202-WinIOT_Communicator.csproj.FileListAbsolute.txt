@@ -1,0 +1,20 @@
+D:\OneDrive - Office 365 Fontys\_FONTYS\18-19nj_Semester4\PPT\IPC_200_CSharp_communication\IPC_200_test\bin\Debug\IPC_200_test.exe.config
+D:\OneDrive - Office 365 Fontys\_FONTYS\18-19nj_Semester4\PPT\IPC_200_CSharp_communication\IPC_200_test\bin\Debug\IPC_200_test.exe
+D:\OneDrive - Office 365 Fontys\_FONTYS\18-19nj_Semester4\PPT\IPC_200_CSharp_communication\IPC_200_test\bin\Debug\IPC_200_test.pdb
+D:\OneDrive - Office 365 Fontys\_FONTYS\18-19nj_Semester4\PPT\IPC_200_CSharp_communication\IPC_200_test\obj\Debug\IPC_200_test.Main.resources
+D:\OneDrive - Office 365 Fontys\_FONTYS\18-19nj_Semester4\PPT\IPC_200_CSharp_communication\IPC_200_test\obj\Debug\IPC_200_test.Properties.Resources.resources
+D:\OneDrive - Office 365 Fontys\_FONTYS\18-19nj_Semester4\PPT\IPC_200_CSharp_communication\IPC_200_test\obj\Debug\IPC-202-WinIOT_Communicator.csproj.GenerateResource.cache
+D:\OneDrive - Office 365 Fontys\_FONTYS\18-19nj_Semester4\PPT\IPC_200_CSharp_communication\IPC_200_test\obj\Debug\IPC-202-WinIOT_Communicator.csproj.CoreCompileInputs.cache
+D:\OneDrive - Office 365 Fontys\_FONTYS\18-19nj_Semester4\PPT\IPC_200_CSharp_communication\IPC_200_test\obj\Debug\IPC_200_test.exe
+D:\OneDrive - Office 365 Fontys\_FONTYS\18-19nj_Semester4\PPT\IPC_200_CSharp_communication\IPC_200_test\obj\Debug\IPC_200_test.pdb
+D:\OneDrive - Office 365 Fontys\_FONTYS\18-19nj_Semester4\PPT\IPC_200_CSharp_communication\IPC_200_test\obj\Debug\IPC-202-WinIOT_Communicator.csprojAssemblyReference.cache
+C:\Users\Nicky\Documents\Proftaak S4\PTT41\Code\ANDERE GROEP ADS\PPT\IPC_200_CSharp_communication\IPC_200_test\bin\Debug\IPC_200_test.exe.config
+C:\Users\Nicky\Documents\Proftaak S4\PTT41\Code\ANDERE GROEP ADS\PPT\IPC_200_CSharp_communication\IPC_200_test\bin\Debug\IPC_200_test.exe
+C:\Users\Nicky\Documents\Proftaak S4\PTT41\Code\ANDERE GROEP ADS\PPT\IPC_200_CSharp_communication\IPC_200_test\bin\Debug\IPC_200_test.pdb
+C:\Users\Nicky\Documents\Proftaak S4\PTT41\Code\ANDERE GROEP ADS\PPT\IPC_200_CSharp_communication\IPC_200_test\obj\Debug\IPC-202-WinIOT_Communicator.csprojAssemblyReference.cache
+C:\Users\Nicky\Documents\Proftaak S4\PTT41\Code\ANDERE GROEP ADS\PPT\IPC_200_CSharp_communication\IPC_200_test\obj\Debug\IPC_200_test.Main.resources
+C:\Users\Nicky\Documents\Proftaak S4\PTT41\Code\ANDERE GROEP ADS\PPT\IPC_200_CSharp_communication\IPC_200_test\obj\Debug\IPC_200_test.Properties.Resources.resources
+C:\Users\Nicky\Documents\Proftaak S4\PTT41\Code\ANDERE GROEP ADS\PPT\IPC_200_CSharp_communication\IPC_200_test\obj\Debug\IPC-202-WinIOT_Communicator.csproj.GenerateResource.cache
+C:\Users\Nicky\Documents\Proftaak S4\PTT41\Code\ANDERE GROEP ADS\PPT\IPC_200_CSharp_communication\IPC_200_test\obj\Debug\IPC-202-WinIOT_Communicator.csproj.CoreCompileInputs.cache
+C:\Users\Nicky\Documents\Proftaak S4\PTT41\Code\ANDERE GROEP ADS\PPT\IPC_200_CSharp_communication\IPC_200_test\obj\Debug\IPC_200_test.exe
+C:\Users\Nicky\Documents\Proftaak S4\PTT41\Code\ANDERE GROEP ADS\PPT\IPC_200_CSharp_communication\IPC_200_test\obj\Debug\IPC_200_test.pdb
