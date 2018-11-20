@@ -4,19 +4,23 @@
     <Declaration><![CDATA[FUNCTION_BLOCK CheckStatus
 VAR_INPUT
 	Position :INT;
+	InputArray: ARRAY [1..25] OF BOOL;
 END_VAR
 VAR_OUTPUT
-	Occupied : BOOL;
-END_VAR
-VAR
-	PalletArray: ARRAY [1..29] OF BOOL := [29(FALSE)];
+Occupied : BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[Occupied := FALSE;
+IF InputArray[Position] THEN
+	Occupied := TRUE;
+END_IF]]></ST>
     </Implementation>
     <LineIds Name="CheckStatus">
-      <LineId Id="9" Count="0" />
+      <LineId Id="37" Count="0" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="30" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>
