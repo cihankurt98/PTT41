@@ -14,59 +14,63 @@ namespace IPC_200_test
 {
     public partial class Main : Form
     {
-        TcAdsClient tcAds;
-        bool test = false;
+        string PLCID = "145.93.160.174.1.1";
+        int PLCPort = 851;
+
+        TcAdsClient adsClient;
+        int htest1;
+
         public Main()
         {
             InitializeComponent();
 
+            connect();
+
             reading();
-            //writing();
         }
 
         void connect()
         {
-            tcAds = new TcAdsClient();
-
-            tcAds.Connect("5.59.204.132.1.1", 851);
+            adsClient = new TcAdsClient();
+            adsClient.Connect(PLCID, PLCPort);
+            htest1 = adsClient.CreateVariableHandle("MAIN.test");
         }
 
         void disconnect()
         {
-            tcAds.Dispose();
+            adsClient.Dispose();
         }
 
         void reading()
         {
-            connect();
-            // creates a stream with a length of 4 byte 
-            AdsStream ds = new AdsStream(4);
-            BinaryReader br = new BinaryReader(ds);
-
-            // reads a DINT from PLC
-            tcAds.Read(0x4020, 0, ds);
-
-            ds.Position = 0;
-            label1.Text = br.ReadInt32().ToString();
-            disconnect();
+           // connect();
+            try
+            {
+                //ALLE VARIABELEN DIE JE WILT LEZEN
+                label1.Text = adsClient.ReadAny(htest1, typeof(int)).ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            //disconnect();
         }
 
         void writing()
         {
-            connect();
-            // creates a stream with a length of 4 byte
-            AdsStream ds = new AdsStream(4);
-            BinaryWriter bw = new BinaryWriter(ds);
+            //connect();
+            try
+            {
+                //DE VARIABELEN DIE JE WILT SCHRIJVEN
+                adsClient.WriteAny(htest1, int.Parse(textBox1.Text));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            reading();
 
-            ds.Position = 0;
-
-            int temp = 0;
-            int.TryParse(textBox1.Text, out temp);
-            bw.Write(temp);
-
-            // writes a DINT to PLC
-            tcAds.Write(0x4020, 0, ds);
-            disconnect();
+            //disconnect();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -77,6 +81,11 @@ namespace IPC_200_test
         private void button2_Click(object sender, EventArgs e)
         {
             writing();
+        }
+
+        private void Main_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            disconnect();
         }
     }
 }
