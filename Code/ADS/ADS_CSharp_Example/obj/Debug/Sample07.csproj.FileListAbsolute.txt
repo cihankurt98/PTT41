@@ -1,0 +1,11 @@
+C:\Users\jensv\Desktop\TwinCAT3\obj\Debug\Sample07.csprojAssemblyReference.cache
+C:\Users\jensv\Desktop\TwinCAT3\obj\Debug\Sample07.csproj.CoreCompileInputs.cache
+C:\Users\Nicky\Google Drive\ICT\TwinCAT3\bin\Debug\Sample07.exe
+C:\Users\Nicky\Google Drive\ICT\TwinCAT3\bin\Debug\Sample07.pdb
+C:\Users\Nicky\Google Drive\ICT\TwinCAT3\bin\Debug\TwinCAT.Ads.dll
+C:\Users\Nicky\Google Drive\ICT\TwinCAT3\bin\Debug\TwinCAT.Ads.xml
+C:\Users\Nicky\Google Drive\ICT\TwinCAT3\obj\Debug\Sample07.csprojAssemblyReference.cache
+C:\Users\Nicky\Google Drive\ICT\TwinCAT3\obj\Debug\Sample07.csproj.CoreCompileInputs.cache
+C:\Users\Nicky\Google Drive\ICT\TwinCAT3\obj\Debug\Sample07.csproj.CopyComplete
+C:\Users\Nicky\Google Drive\ICT\TwinCAT3\obj\Debug\Sample07.exe
+C:\Users\Nicky\Google Drive\ICT\TwinCAT3\obj\Debug\Sample07.pdb
