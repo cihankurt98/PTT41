@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <GVL Name="GVL_IO" Id="{fedb6f1a-b33e-4d28-b143-47886c3d9229}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}     // Do not remove this line
+VAR_GLOBAL
+// Input module EL1809	
+    Start_button                 AT %I* :BOOL;
+    Stop_button                  AT %I* :BOOL;
+    Auto_I_Manual_II_switch      AT %I* :BOOL;
+    Reset_button                 AT %I* :BOOL;
+    a_0_Vertical_Zaxis_upward    AT %I* :BOOL;
+    a_1_Vertical_Zaxis_downward  AT %I* :BOOL;
+    dp1_Can_detection            AT %I* :BOOL;
+    dp2_Cover_detection          AT %I* :BOOL;
+    BUSYX_BUSY_tableX            AT %I* :BOOL;
+    SETONX_ORIGIN_tableX         AT %I* :BOOL;
+    ALARMX_ALARM_tableX          AT %I* :BOOL;
+    EMERX_EMERGENCY_tableX       AT %I* :BOOL;
+    BUSYY_BUSY_traslationY       AT %I* :BOOL;
+    SETONY_ORIGIN_translationY   AT %I* :BOOL;
+    ALARMY_ALARM_translationY    AT %I* :BOOL;
+    EMERY_EMERGENCY_translationY AT %I* :BOOL;
+//========================================
+	INPUTchannel_01_SPARE        AT %I* :BOOL;
+	INPUTchannel_02_SPARE        AT %I* :BOOL;
+	INPUTchannel_03_SPARE        AT %I* :BOOL;
+	INPUTchannel_04_SPARE        AT %I* :BOOL;
+	INPUTchannel_05_SPARE        AT %I* :BOOL;
+	INPUTchannel_06_SPARE        AT %I* :BOOL;
+	INPUTchannel_07_SPARE        AT %I* :BOOL;
+	INPUTchannel_08_SPARE        AT %I* :BOOL;
+	INPUTchannel_09_SPARE        AT %I* :BOOL;
+	INPUTchannel_10_SPARE        AT %I* :BOOL;
+	INPUTchannel_11_SPARE        AT %I* :BOOL;
+	INPUTchannel_12_SPARE        AT %I* :BOOL;
+	INPUTchannel_13_SPARE        AT %I* :BOOL;
+	INPUTchannel_14_SPARE        AT %I* :BOOL;
+	INPUTchannel_15_SPARE        AT %I* :BOOL;
+	INPUTchannel_16_SPARE        AT %I* :BOOL;
+//========================================
+	BR_Alarm_light               AT %Q* :BOOL;
+    Aplus_Vert_axis_downwards    AT %Q* :BOOL;
+    Vplus_Vacuum_start           AT %Q* :BOOL;
+    INX0_from_Input0_tableX      AT %Q* :BOOL;
+    INX1_from_Input1_tableX      AT %Q* :BOOL;
+    INX2_from_Input2_tableX      AT %Q* :BOOL;
+    SVONX_SERVO_ON_tableX        AT %Q* :BOOL;
+    SETUPX_ORIGIN_tableX         AT %Q* :BOOL;
+    HOLD_STOP_tableX_AND_translY AT %Q* :BOOL;
+    DRIVEX_MOVE_tableX           AT %Q* :BOOL;
+    INY0_from_Input0_translY     AT %Q* :BOOL;
+    INY1_from_Input1_translY     AT %Q* :BOOL;
+    INY2_from_Input2_translY     AT %Q* :BOOL;
+    SVONY_SERVO_ON_translY       AT %Q* :BOOL;
+    SETUPY_ORIGIN_translY        AT %Q* :BOOL;
+    DRIVEY_MOVE_translY          AT %Q* :BOOL;
+//============================================
+    OUTPUTchannel_01_SPARE       AT %Q* :BOOL;
+    OUTPUTchannel_02_SPARE       AT %Q* :BOOL;
+    OUTPUTchannel_03_SPARE       AT %Q* :BOOL;
+    OUTPUTchannel_04_SPARE       AT %Q* :BOOL;
+    OUTPUTchannel_05_SPARE       AT %Q* :BOOL;
+    OUTPUTchannel_06_SPARE       AT %Q* :BOOL;
+    OUTPUTchannel_07_SPARE       AT %Q* :BOOL;
+    OUTPUTchannel_08_SPARE       AT %Q* :BOOL;
+    OUTPUTchannel_00_SPARE       AT %Q* :BOOL;
+    OUTPUTchannel_10_SPARE       AT %Q* :BOOL;
+    OUTPUTchannel_11_SPARE       AT %Q* :BOOL;
+    OUTPUTchannel_12_SPARE       AT %Q* :BOOL;
+    OUTPUTchannel_13_SPARE       AT %Q* :BOOL;
+    OUTPUTchannel_14_SPARE       AT %Q* :BOOL;
+    OUTPUTchannel_15_SPARE       AT %Q* :BOOL;
+    OUTPUTchannel_16_SPARE       AT %Q* :BOOL;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

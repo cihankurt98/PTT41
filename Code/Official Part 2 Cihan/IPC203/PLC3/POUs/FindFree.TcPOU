@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="FindFree" Id="{a9fbc3ff-d04d-4f8b-9fa0-8646871f6c2a}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FindFree
+VAR_INPUT
+	DrinkArray: ARRAY [1..25] OF Drinks;
+	PalletArray: ARRAY [1..25] OF BOOL;
+	TempDrink : Drinks;
+END_VAR
+VAR_OUTPUT
+	FreePosition : INT; 
+END_VAR
+VAR
+	Counter : INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[FreePosition := 666;
+
+FOR Counter:=1 TO 25 DO //sizeof array werkt niet
+ 	IF NOT PalletArray[Counter] THEN
+		IF DrinkArray[Counter] = TempDrink THEN
+		FreePosition := Counter;
+		END_IF
+	END_IF
+END_FOR
+// counter gaat van 25 naar 1 ipv 1 naar 25... onzin.
+// fanta plaatsen worden niet gezien, cola komt er alsnog op]]></ST>
+    </Implementation>
+    <LineIds Name="FindFree">
+      <LineId Id="23" Count="1" />
+      <LineId Id="13" Count="2" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="26" Count="1" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <DUT Name="Drinks" Id="{04b9c87a-fbd9-45c2-92b9-b51ca61fd7ab}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+//{attribute 'strict'}
+TYPE Drinks :
+(
+	Cola := 0,
+	Fanta
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
