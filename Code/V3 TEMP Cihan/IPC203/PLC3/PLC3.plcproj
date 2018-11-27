@@ -15,6 +15,9 @@
     <LibraryReferences>{d654a589-45ff-47ef-b486-ffc5b37e687f}</LibraryReferences>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CheckStatus.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DUTs\States.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -34,15 +37,8 @@
     <Compile Include="POUs\MoveArm.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Moving.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Visualization Manager.TcVMO">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="VISUs\Visualization.TcVIS">
-      <SubType>Code</SubType>
-      <DependentUpon>Visualization Manager.TcVMO</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

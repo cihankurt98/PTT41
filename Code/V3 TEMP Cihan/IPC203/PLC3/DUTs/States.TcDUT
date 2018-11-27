@@ -13,7 +13,8 @@ TYPE States :
 	Moving,
 	DropDown,
 	DropUp,
-	PalletFull
+	PalletFull,
+	ManualCheck
 );
 END_TYPE
 ]]></Declaration>

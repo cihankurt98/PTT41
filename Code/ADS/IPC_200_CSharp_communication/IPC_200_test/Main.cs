@@ -14,59 +14,118 @@ namespace IPC_200_test
 {
     public partial class Main : Form
     {
-        TcAdsClient tcAds;
-        bool test = false;
+        string PLCID = "145.93.160.174.1.1";
+        int PLCPort = 851;
+
+        TcAdsClient adsClient;
+
+        //VARIABLES
+        int[] PalletArray = new int[25];
+        int[] DrinksArray = new int[25];
+        int FreeCola;
+        int FreeFanta;
+        bool NoBottle;
+        bool NoCover;
+
+        //HANDLE VARIABLES
+        int[] hPalletArray = new int[25];
+        int[] hDrinksArray = new int[25];
+        int hFreeCola;
+        int hFreeFanta;
+        int hNoBottle;
+        int hNoCover;
+
         public Main()
         {
             InitializeComponent();
 
-            reading();
-            //writing();
+            connect();
+
+            timer1.Start();
         }
 
         void connect()
         {
-            tcAds = new TcAdsClient();
+            adsClient = new TcAdsClient();
+            adsClient.Connect(PLCID, PLCPort);
 
-            tcAds.Connect("5.59.204.132.1.1", 851);
+            //ARRAYS
+            for (int i = 0; i < 25; i++)
+            {
+                hPalletArray[i] = adsClient.CreateVariableHandle("MAIN.PalletArray[" + (i + 1) + "]");
+                hDrinksArray[i] = adsClient.CreateVariableHandle("MAIN.DrinksArray[" + (i + 1) + "]");
+            }
+            //OTHER VARIABLES
+            hFreeCola = adsClient.CreateVariableHandle("MAIN.FreeCola");
+            hFreeFanta = adsClient.CreateVariableHandle("MAIN.FreeFanta");
+            hNoBottle = adsClient.CreateVariableHandle("MAIN.NoBottle");
+            hNoCover = adsClient.CreateVariableHandle("MAIN.NoCover");
+
+            reading();
         }
 
         void disconnect()
         {
-            tcAds.Dispose();
+            adsClient.Dispose();
         }
 
         void reading()
         {
-            connect();
-            // creates a stream with a length of 4 byte 
-            AdsStream ds = new AdsStream(4);
-            BinaryReader br = new BinaryReader(ds);
+            try
+            {
+                //ARRAYS
+                for (int i = 0; i < 25; i++)
+                {               
+                    if (PalletArray[i] != (int)adsClient.ReadAny(hPalletArray[i], typeof(int)))
+                    {
+                        PalletArray[i] = (int)adsClient.ReadAny(hPalletArray[i], typeof(int));
+                    }
+                    if (DrinksArray[i] != (int)adsClient.ReadAny(hDrinksArray[i], typeof(int)))
+                    {
+                        DrinksArray[i] = (int)adsClient.ReadAny(hDrinksArray[i], typeof(int));
+                    }
+                }
 
-            // reads a DINT from PLC
-            tcAds.Read(0x4020, 0, ds);
-
-            ds.Position = 0;
-            label1.Text = br.ReadInt32().ToString();
-            disconnect();
+                //OTHER VARIABLES
+                if (FreeFanta != (int)adsClient.ReadAny(hFreeFanta, typeof(int)))
+                {
+                    FreeFanta = (int)adsClient.ReadAny(hFreeFanta, typeof(int));
+                }
+                if (FreeCola != (int)adsClient.ReadAny(hFreeCola, typeof(int)))
+                {
+                    FreeCola = (int)adsClient.ReadAny(hFreeCola, typeof(int));
+                }
+                if (NoCover != (bool)adsClient.ReadAny(hNoCover, typeof(bool)))
+                {
+                    NoCover = (bool)adsClient.ReadAny(hNoCover, typeof(bool));
+                }
+                if (NoBottle != (bool)adsClient.ReadAny(hNoBottle, typeof(bool)))
+                {
+                    NoBottle = (bool)adsClient.ReadAny(hNoBottle, typeof(bool));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         void writing()
         {
-            connect();
-            // creates a stream with a length of 4 byte
-            AdsStream ds = new AdsStream(4);
-            BinaryWriter bw = new BinaryWriter(ds);
-
-            ds.Position = 0;
-
-            int temp = 0;
-            int.TryParse(textBox1.Text, out temp);
-            bw.Write(temp);
-
-            // writes a DINT to PLC
-            tcAds.Write(0x4020, 0, ds);
-            disconnect();
+            try
+            {
+                //DE VARIABELEN DIE JE WILT SCHRIJVEN
+                //adsClient.WriteAny(htest1, int.Parse(textBox1.Text));
+                for (int i = 0; i < 25; i++)
+                {
+                    adsClient.WriteAny(hPalletArray[i], true);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            reading();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -77,6 +136,16 @@ namespace IPC_200_test
         private void button2_Click(object sender, EventArgs e)
         {
             writing();
+        }
+
+        private void Main_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            disconnect();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            reading();
         }
     }
 }
