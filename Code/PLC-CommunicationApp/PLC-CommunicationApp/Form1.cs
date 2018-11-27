@@ -8,8 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using System.Windows.Forms;
-using uPLibrary.Networking.M2Mqtt;
-using uPLibrary.Networking.M2Mqtt.Messages;
 using System.Diagnostics;
 
 
@@ -17,7 +15,7 @@ namespace PLC_CommunicationApp
 {
     public partial class Form1 : Form
     {
-        MqttClient client;
+        MQTTClient client;
 
         public Form1()
         {
@@ -38,7 +36,7 @@ namespace PLC_CommunicationApp
                 return;
             }
 
-            client = new MqttClient(BrokerIpTB.Text);
+            client = new MQTTClient(BrokerIpTB.Text, 10, 2);
         }
 
         private void ConnectBtn_Click(object sender, EventArgs e)
@@ -61,11 +59,10 @@ namespace PLC_CommunicationApp
                 return;
             }
 
-            client.Connect(Guid.NewGuid().ToString(), UsernameTB.Text, PasswordTB.Text);
+            client.Connect(UsernameTB.Text, PasswordTB.Text);
 
         }
 
-        bool test = true;
         private void PublishBtn_Click(object sender, EventArgs e)
         {
             if (String.IsNullOrWhiteSpace(TopicTB.Text))
@@ -86,32 +83,9 @@ namespace PLC_CommunicationApp
                 return;
             }
 
-            ushort msgId = client.Publish(TopicTB.Text,                 // topic
-                              Encoding.UTF8.GetBytes(PubMsgTB.Text),    // message body
-                              MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE,       // QoS level
-                              false);                                   // retained
-
-            if (test)
-            {
-                client.MqttMsgPublishReceived += client_MqttMsgPublishReceived;
-                test = false;
-            }
-   
-        }
-
-        void client_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
-        {
-            string recvMessage = "Received = " + Encoding.UTF8.GetString(e.Message) + " on topic " + e.Topic;
-            Debug.WriteLine(recvMessage);
-      
-            //subscribeLB.Items.Add(recvMessage);
-            //this.Invoke((MethodInvoker)(() => subscribeLB.Items.Clear())); //Form items aren't thread safe! An invoker is required to make cross thread method calls.
-            this.Invoke((MethodInvoker)(() => subscribeLB.Items.Add(recvMessage))); //Form items aren't thread safe! An invoker is required to make cross thread method calls.
-            recvMessage = "";
-            MessageBox.Show("Test");
+            client.Publish(TopicTB.Text, PubMsgTB.Text);
 
         }
-
 
         private void SubscribeBtn_Click(object sender, EventArgs e)
         {
@@ -127,16 +101,18 @@ namespace PLC_CommunicationApp
                 return;
             }
 
-            ushort msgId = client.Subscribe(new string[] { TopicTB.Text },
-                 new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
-
+            client.Subscribe(TopicTB.Text);
 
         }
 
-        void client_MqttMsgSubscribed(object sender, MqttMsgSubscribedEventArgs e)
+        private void readBtn_Click(object sender, EventArgs e)
         {
-            Debug.WriteLine("Subscribed for id = " + e.MessageId);
-        }
+            if(client == null)
+            { MessageBox.Show("Initialize and connect a client first."); return; }
 
+            if (client.Read() != String.Empty)
+            { subscribeLB.Items.Add(client.Read()); }
+
+        }
     }
 }

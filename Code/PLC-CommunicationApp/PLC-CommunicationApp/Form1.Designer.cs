@@ -45,6 +45,7 @@
             this.SubscribeBtn = new System.Windows.Forms.Button();
             this.TopicTB = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.readBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // CreateBtn
@@ -198,11 +199,22 @@
             this.label6.TabIndex = 2;
             this.label6.Text = "sub topic";
             // 
+            // readBtn
+            // 
+            this.readBtn.Location = new System.Drawing.Point(12, 128);
+            this.readBtn.Name = "readBtn";
+            this.readBtn.Size = new System.Drawing.Size(74, 22);
+            this.readBtn.TabIndex = 4;
+            this.readBtn.Text = "read";
+            this.readBtn.UseVisualStyleBackColor = true;
+            this.readBtn.Click += new System.EventHandler(this.readBtn_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(823, 547);
+            this.Controls.Add(this.readBtn);
             this.Controls.Add(this.SubscribeBtn);
             this.Controls.Add(this.subscribeLB);
             this.Controls.Add(this.label4);
@@ -247,6 +259,7 @@
         private System.Windows.Forms.Button SubscribeBtn;
         private System.Windows.Forms.TextBox TopicTB;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button readBtn;
     }
 }
 
