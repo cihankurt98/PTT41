@@ -18,7 +18,22 @@ namespace IPC_200_test
         int PLCPort = 851;
 
         TcAdsClient adsClient;
-        int htest1;
+
+        //VARIABLES
+        int[] PalletArray = new int[25];
+        int[] DrinksArray = new int[25];
+        int FreeCola;
+        int FreeFanta;
+        bool NoBottle;
+        bool NoCover;
+
+        //HANDLE VARIABLES
+        int[] hPalletArray = new int[25];
+        int[] hDrinksArray = new int[25];
+        int hFreeCola;
+        int hFreeFanta;
+        int hNoBottle;
+        int hNoCover;
 
         public Main()
         {
@@ -26,14 +41,27 @@ namespace IPC_200_test
 
             connect();
 
-            reading();
+            timer1.Start();
         }
 
         void connect()
         {
             adsClient = new TcAdsClient();
             adsClient.Connect(PLCID, PLCPort);
-            htest1 = adsClient.CreateVariableHandle("MAIN.test");
+
+            //ARRAYS
+            for (int i = 0; i < 25; i++)
+            {
+                hPalletArray[i] = adsClient.CreateVariableHandle("MAIN.PalletArray[" + (i + 1) + "]");
+                hDrinksArray[i] = adsClient.CreateVariableHandle("MAIN.DrinksArray[" + (i + 1) + "]");
+            }
+            //OTHER VARIABLES
+            hFreeCola = adsClient.CreateVariableHandle("MAIN.FreeCola");
+            hFreeFanta = adsClient.CreateVariableHandle("MAIN.FreeFanta");
+            hNoBottle = adsClient.CreateVariableHandle("MAIN.NoBottle");
+            hNoCover = adsClient.CreateVariableHandle("MAIN.NoCover");
+
+            reading();
         }
 
         void disconnect()
@@ -43,34 +71,61 @@ namespace IPC_200_test
 
         void reading()
         {
-           // connect();
             try
             {
-                //ALLE VARIABELEN DIE JE WILT LEZEN
-                label1.Text = adsClient.ReadAny(htest1, typeof(int)).ToString();
+                //ARRAYS
+                for (int i = 0; i < 25; i++)
+                {               
+                    if (PalletArray[i] != (int)adsClient.ReadAny(hPalletArray[i], typeof(int)))
+                    {
+                        PalletArray[i] = (int)adsClient.ReadAny(hPalletArray[i], typeof(int));
+                    }
+                    if (DrinksArray[i] != (int)adsClient.ReadAny(hDrinksArray[i], typeof(int)))
+                    {
+                        DrinksArray[i] = (int)adsClient.ReadAny(hDrinksArray[i], typeof(int));
+                    }
+                }
+
+                //OTHER VARIABLES
+                if (FreeFanta != (int)adsClient.ReadAny(hFreeFanta, typeof(int)))
+                {
+                    FreeFanta = (int)adsClient.ReadAny(hFreeFanta, typeof(int));
+                }
+                if (FreeCola != (int)adsClient.ReadAny(hFreeCola, typeof(int)))
+                {
+                    FreeCola = (int)adsClient.ReadAny(hFreeCola, typeof(int));
+                }
+                if (NoCover != (bool)adsClient.ReadAny(hNoCover, typeof(bool)))
+                {
+                    NoCover = (bool)adsClient.ReadAny(hNoCover, typeof(bool));
+                }
+                if (NoBottle != (bool)adsClient.ReadAny(hNoBottle, typeof(bool)))
+                {
+                    NoBottle = (bool)adsClient.ReadAny(hNoBottle, typeof(bool));
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            //disconnect();
         }
 
         void writing()
         {
-            //connect();
             try
             {
                 //DE VARIABELEN DIE JE WILT SCHRIJVEN
-                adsClient.WriteAny(htest1, int.Parse(textBox1.Text));
+                //adsClient.WriteAny(htest1, int.Parse(textBox1.Text));
+                for (int i = 0; i < 25; i++)
+                {
+                    adsClient.WriteAny(hPalletArray[i], true);
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
             reading();
-
-            //disconnect();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -86,6 +141,11 @@ namespace IPC_200_test
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
             disconnect();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            reading();
         }
     }
 }
