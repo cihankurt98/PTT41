@@ -14,12 +14,12 @@ namespace PLC_CommunicationApp
 
         ADSConnection(string netId, string adsPort)
         {
-            if(string.IsNullOrEmpty(netId))
+            if (string.IsNullOrEmpty(netId))
             {
                 throw new ArgumentException("_netId == null or empty");
             }
 
-            if(string.IsNullOrEmpty(adsPort))
+            if (string.IsNullOrEmpty(adsPort))
             {
                 throw new ArgumentException("_adsPort == null or empty");
             }
@@ -28,19 +28,77 @@ namespace PLC_CommunicationApp
             AdsPort = adsPort;
         }
 
-        private MQTTClient FindBroker()
+        public bool AddBroker(string IP, int bufferLength, byte QOS, int ID)
         {
+            if(FindBroker(ID) != null)
+            {
+                return false;
+            }
+
+            try
+            {
+                MQTTBrokers.Add(new MQTTClient(IP, bufferLength, QOS, ID));
+            }
+            catch (ArgumentNullException e)
+            {
+                System.Diagnostics.Debug.Print(e.Message);
+                return false;
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                System.Diagnostics.Debug.Print(e.Message);
+                return false;
+            }
+
+            return true;
+        }
+
+        private MQTTClient FindBroker(int id)
+        {
+            foreach (MQTTClient broker in MQTTBrokers)
+            {
+                if (id == broker.ID)
+                {
+                    return broker;
+                }
+            }
+
             return null;
         }
 
-        public bool PublishTo(MQTTClient broker)
+        public bool PublishTo(int brokerID, string topic, string message)
         {
+            if(string.IsNullOrEmpty(topic))
+            {
+                throw new ArgumentException("topic == null or empty");
+            }
+
+            if (string.IsNullOrEmpty(message))
+            {
+                throw new ArgumentException("message == null or empty");
+            }
+
+            MQTTClient foundBroker = FindBroker(brokerID);
+            if (foundBroker != null)
+            {
+                // publish to found connection
+                foundBroker.Publish(topic, message);
+
+                return true;
+            }
+
             return false;
         }
 
-        public bool ReadNextMessageFrom(MQTTClient broker)
+        public string ReadNextMessageFrom(int brokerID)
         {
-            return false;
+            MQTTClient foundBroker = FindBroker(brokerID);
+            if(foundBroker != null)
+            {
+                return foundBroker.Read();
+            }
+
+            return null;
         }
     }
 }

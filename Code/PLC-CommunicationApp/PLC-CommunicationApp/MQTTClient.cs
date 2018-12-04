@@ -11,8 +11,8 @@ namespace PLC_CommunicationApp
 {
     class MQTTClient
     {
-        public int ID;
-        private readonly byte QOS;
+        public int ID { get; private set; }
+        public readonly byte QOS;
 
         private MqttClient client;
         private bool ackPub;
@@ -22,9 +22,14 @@ namespace PLC_CommunicationApp
         public MQTTClient(string IP, int bufferLength, byte QOS, int ID)
         {
             if(bufferLength < 1)
-            { throw new ArgumentOutOfRangeException("bufferLength"); }
+            {
+                throw new ArgumentOutOfRangeException("bufferLength");
+            }
+
             if( QOS < 0 || QOS > 2)
-            { throw new ArgumentOutOfRangeException("QOS"); }
+            {
+                throw new ArgumentOutOfRangeException("QOS");
+            }
 
             buffer = new RollingBuffer(bufferLength);
             this.QOS = QOS;
@@ -37,10 +42,14 @@ namespace PLC_CommunicationApp
         public void Connect(string username, string password)
         {
             if(String.IsNullOrWhiteSpace(username))
-            { throw new ArgumentNullException("username"); }
+            {
+                throw new ArgumentNullException("username");
+            }
 
             if(string.IsNullOrWhiteSpace(password))
-            { throw new ArgumentNullException("password"); }
+            {
+                throw new ArgumentNullException("password");
+            }
 
             client.Connect(Guid.NewGuid().ToString(), username, password);
 
@@ -49,10 +58,14 @@ namespace PLC_CommunicationApp
         public void Publish(string topic, string message)
         {
             if(String.IsNullOrWhiteSpace(topic))
-            { throw new ArgumentNullException("topic"); }
+            {
+                throw new ArgumentNullException("topic");
+            }
 
             if(string.IsNullOrWhiteSpace(message))
-            { throw new ArgumentNullException("message"); }
+            {
+                throw new ArgumentNullException("message");
+            }
             
             ushort msgId = client.Publish(topic,                                    // topic
                                           Encoding.UTF8.GetBytes(message),          // message body
@@ -69,11 +82,14 @@ namespace PLC_CommunicationApp
         public void Subscribe(string topic)
         {
             if(String.IsNullOrWhiteSpace(topic))
-            { throw new ArgumentNullException("topic"); }
+            {
+                throw new ArgumentNullException("topic");
+            }
 
             ushort msgId = client.Subscribe(new string[] { topic }, 
                                             new byte[]   { QOS   } );
         }
+
         void client_MqttMsgSubscribed(object sender, MqttMsgSubscribedEventArgs e)
         {
             Debug.WriteLine("Subscribed for id = " + e.MessageId);
@@ -82,7 +98,10 @@ namespace PLC_CommunicationApp
         public void Unsubscribe(string topic)
         {
             if(String.IsNullOrWhiteSpace(topic))
-            { throw new ArgumentNullException("topic"); }
+            {
+                throw new ArgumentNullException("topic");
+            }
+
             client.Unsubscribe(new string[] { topic });
         }
 
