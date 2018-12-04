@@ -11,6 +11,7 @@ namespace PLC_CommunicationApp
 {
     class MQTTClient
     {
+        public int ID;
         private readonly byte QOS;
 
         private MqttClient client;
@@ -18,7 +19,7 @@ namespace PLC_CommunicationApp
         private RollingBuffer buffer;
 
 
-        public MQTTClient(string IP, int bufferLength, byte QOS)
+        public MQTTClient(string IP, int bufferLength, byte QOS, int ID)
         {
             if(bufferLength < 1)
             { throw new ArgumentOutOfRangeException("bufferLength"); }
@@ -26,7 +27,9 @@ namespace PLC_CommunicationApp
             { throw new ArgumentOutOfRangeException("QOS"); }
 
             buffer = new RollingBuffer(bufferLength);
-            this.QOS = QOS; 
+            this.QOS = QOS;
+            this.ID = ID;
+
             ackPub = true;
             client = new MqttClient(IP);
         }

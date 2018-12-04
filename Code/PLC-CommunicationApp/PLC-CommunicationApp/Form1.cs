@@ -36,7 +36,7 @@ namespace PLC_CommunicationApp
                 return;
             }
 
-            client = new MQTTClient(BrokerIpTB.Text, 10, 2);
+            client = new MQTTClient(BrokerIpTB.Text, 10, 2, 1);
         }
 
         private void ConnectBtn_Click(object sender, EventArgs e)
