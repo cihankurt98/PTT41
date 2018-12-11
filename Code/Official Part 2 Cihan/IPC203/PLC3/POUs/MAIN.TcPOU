@@ -5,7 +5,6 @@
 VAR
 	Timer1 :TON;
 	Timer2 : TON;
-	Timer3 : TON;
 	PulseTimer1 : TP;
 
 	CurrentState  : States;
@@ -26,27 +25,31 @@ VAR
 	Find_Free : FindFree;
 	
 	PalletArray: ARRAY [1..25] OF BOOL := [25(FALSE)];
-	Pos : INT;
 	
-	DrinkArray: ARRAY [1..25] OF Drinks := [25(Drinks.Cola)]; 
+	DrinkArray: ARRAY [1..25] OF Drinks := [13(Drinks.Cola), 12(Drinks.Fanta)]; 
 	FreeCola : INT;
 	FreeFanta : INT;
 	
 	//messages voor Nicky & Jens
 	BottleAvailable : BOOL;
+	CorrectDelivery : BOOL;
 	NoCover : BOOL;
 	NoBottle : BOOL;
+	WrongDrink : BOOL;
 	ColaFanta: INT;
 	
-
+	//Settings
+	StartPos : INT;
+	ErrorPos: INT;
+	CurrentPos : INT;
+	
 	
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[PulseTimer1(IN:=GVL_IO.Start_button, PT:=T#150MS);
 Timer1(IN:= GVL_IO.a_1_Vertical_Zaxis_downward, PT:= T#10MS);
-Timer2(IN:=GVL_IO.a_1_Vertical_Zaxis_downward, PT:=T#10MS);
-Timer3(IN:=droppingDown AND NOT GVL_IO.a_1_Vertical_Zaxis_downward, PT:=T#280MS);
+Timer2(IN:=droppingDown AND NOT GVL_IO.a_1_Vertical_Zaxis_downward, PT:=T#280MS);
 
 CASE CurrentState OF
 States.Init:
@@ -74,39 +77,48 @@ States.Init:
 		
 		// Init voltooid ga naar idle
 		IF InitXReady AND InitYReady THEN
-			Pos:= 1;
+			CurrentPos:= 1;
 			NoCover := FALSE;
 			NoBottle := FALSE;
+			WrongDrink:= FALSE;
+			CorrectDelivery := FALSE;
+			ErrorPos:= 666;
+			StartPos:= 30;
 			ColaFanta := drinks.Cola;
 			CurrentState:= States.Idle;
 		END_IF
 		
 States.Idle:
-		//TEST =========================================================
+		//=========================TEST=================================
 		IF NOT GVL_IO.Stop_button THEN
 			BottleAvailable := TRUE;
 		END_IF
 		//==============================================================
+		CorrectDelivery := FALSE;
 		Count_Free_Spaces(DrinkArray:=DrinkArray, PalletArray:= PalletArray);
 		FreeCola := Count_Free_Spaces.FreeCola;
 		FreeFanta := Count_Free_Spaces.FreeFanta;
 		IF BottleAvailable AND GVL_IO.dp1_Can_detection AND GVL_IO.dp2_Cover_detection THEN
-			Find_Free(DrinkArray:=DrinkArray, PalletArray:= PalletArray, TempDrink:= ColaFanta);
-			Pos := Find_Free.FreePosition;
-			NoCover := FALSE;
-			NoBottle := FALSE;
-			BottleAvailable := FALSE;
-			CurrentState := States.MoveToPickUp;
-		ELSIF BottleAvailable AND NOT GVL_IO.dp2_Cover_detection THEN
-			NoCover := TRUE;
-			BottleAvailable := FALSE;
+			Find_Free(DrinkArray:=DrinkArray, PalletArray:= PalletArray, TempDrink:= ColaFanta, ErrorPosition:=ErrorPos);
+			CurrentPos := Find_Free.FreePosition;
+			IF CurrentPos = ErrorPos THEN
+				WrongDrink := TRUE;
+				CurrentState := States.ManualCheck;
+			ELSE
+				CorrectDelivery := TRUE;
+				NoCover := FALSE;
+				NoBottle := FALSE;
+				CurrentState := States.MoveToPickUp;
+			END_IF
 		ELSIF BottleAvailable AND NOT GVL_IO.dp1_Can_detection THEN
 			NoBottle := TRUE;
-			BottleAvailable := FALSE;
+		ELSIF BottleAvailable AND NOT GVL_IO.dp2_Cover_detection THEN
+			NoCover := TRUE;
 		END_IF
+		BottleAvailable := FALSE;
 		
 States.MoveToPickUp:
-		Move_Arm(Position:= 30);
+		Move_Arm(Position:= StartPos);
 		IF Move_Arm.OnNewLocation THEN
 			CurrentState := States.PickUpDown;
 		END_IF
@@ -133,12 +145,11 @@ States.PickUpUp:
 		
 States.Moving:
 		IF GVL_IO.a_0_Vertical_Zaxis_upward THEN
-		
-		Move_Arm(Position:= Pos);
-		IF Move_Arm.OnNewLocation THEN
-			PalletArray[Pos] := TRUE; // TEMP Cihan
-			CurrentState := States.DropDown;
-		END_IF
+			Move_Arm(Position:= CurrentPos);
+			IF Move_Arm.OnNewLocation THEN
+				PalletArray[CurrentPos] := TRUE;
+				CurrentState := States.DropDown;
+			END_IF
 		END_IF
 		
 States.DropDown:
@@ -151,13 +162,13 @@ States.DropDown:
 		
 		IF 	GVL_IO.a_1_Vertical_Zaxis_downward THEN
 			GVL_IO.Vplus_Vacuum_start := FALSE;
-			IF Timer2.Q THEN
+			IF Timer1.Q THEN
 				TimerResult := TIME() - TimerTest1;
 				droppingDown := FALSE;
 				CurrentState := States.DropUp;
 			END_IF
 			
-		ELSE IF Timer3.Q  THEN
+		ELSE IF Timer2.Q  THEN
 		GVL_io.Aplus_Vert_axis_downwards := FALSE;
 		droppingDown := FALSE;
 		CurrentState := States.ManualCheck;
@@ -170,6 +181,7 @@ States.DropUp:
 		END_IF
 		
 		IF GVL_IO.a_0_Vertical_Zaxis_upward THEN
+			//BottleAvailable := FALSE;
 			CurrentState := States.Idle;
 		END_IF
 		
@@ -178,6 +190,7 @@ States.ManualCheck:
 		GVL_io.Vplus_Vacuum_start := FALSE;
 		IF GVL_IO.Reset_button THEN
 			GVL_IO.BR_Alarm_light := FALSE;
+			WrongDrink := FALSE;
 			Currentstate := States.Idle;
 		END_IF
 END_CASE	]]></ST>
@@ -185,10 +198,11 @@ END_CASE	]]></ST>
     <LineIds Name="MAIN">
       <LineId Id="860" Count="0" />
       <LineId Id="863" Count="0" />
-      <LineId Id="1106" Count="0" />
       <LineId Id="1124" Count="0" />
       <LineId Id="864" Count="27" />
       <LineId Id="1290" Count="1" />
+      <LineId Id="1376" Count="1" />
+      <LineId Id="1374" Count="1" />
       <LineId Id="1302" Count="0" />
       <LineId Id="1035" Count="0" />
       <LineId Id="892" Count="1" />
@@ -196,18 +210,23 @@ END_CASE	]]></ST>
       <LineId Id="1292" Count="1" />
       <LineId Id="1295" Count="1" />
       <LineId Id="1294" Count="0" />
+      <LineId Id="1363" Count="0" />
       <LineId Id="1267" Count="1" />
       <LineId Id="1266" Count="0" />
       <LineId Id="1286" Count="0" />
       <LineId Id="1304" Count="1" />
-      <LineId Id="1288" Count="1" />
-      <LineId Id="1297" Count="0" />
-      <LineId Id="1287" Count="0" />
+      <LineId Id="1346" Count="0" />
+      <LineId Id="1357" Count="0" />
+      <LineId Id="1349" Count="0" />
+      <LineId Id="1351" Count="0" />
+      <LineId Id="1362" Count="0" />
+      <LineId Id="1353" Count="1" />
+      <LineId Id="1352" Count="0" />
+      <LineId Id="1350" Count="0" />
+      <LineId Id="1365" Count="1" />
       <LineId Id="895" Count="1" />
-      <LineId Id="1283" Count="1" />
-      <LineId Id="897" Count="0" />
-      <LineId Id="1300" Count="0" />
       <LineId Id="1281" Count="0" />
+      <LineId Id="1364" Count="0" />
       <LineId Id="907" Count="1" />
       <LineId Id="1224" Count="0" />
       <LineId Id="1226" Count="1" />
@@ -215,7 +234,6 @@ END_CASE	]]></ST>
       <LineId Id="1070" Count="0" />
       <LineId Id="942" Count="20" />
       <LineId Id="1171" Count="0" />
-      <LineId Id="1174" Count="0" />
       <LineId Id="1159" Count="3" />
       <LineId Id="1157" Count="0" />
       <LineId Id="1176" Count="0" />
@@ -237,10 +255,13 @@ END_CASE	]]></ST>
       <LineId Id="1095" Count="0" />
       <LineId Id="984" Count="0" />
       <LineId Id="1094" Count="0" />
-      <LineId Id="986" Count="3" />
+      <LineId Id="986" Count="1" />
+      <LineId Id="1360" Count="0" />
+      <LineId Id="988" Count="1" />
       <LineId Id="1036" Count="2" />
       <LineId Id="1177" Count="0" />
       <LineId Id="1039" Count="1" />
+      <LineId Id="1358" Count="0" />
       <LineId Id="1042" Count="0" />
       <LineId Id="1041" Count="0" />
       <LineId Id="641" Count="0" />

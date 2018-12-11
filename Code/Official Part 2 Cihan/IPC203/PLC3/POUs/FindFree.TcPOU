@@ -6,6 +6,7 @@ VAR_INPUT
 	DrinkArray: ARRAY [1..25] OF Drinks;
 	PalletArray: ARRAY [1..25] OF BOOL;
 	TempDrink : Drinks;
+	ErrorPosition : INT;
 END_VAR
 VAR_OUTPUT
 	FreePosition : INT; 
@@ -15,7 +16,7 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[FreePosition := 666;
+      <ST><![CDATA[FreePosition := ErrorPosition;
 
 FOR Counter:=1 TO 25 DO //sizeof array werkt niet
  	IF NOT PalletArray[Counter] THEN
