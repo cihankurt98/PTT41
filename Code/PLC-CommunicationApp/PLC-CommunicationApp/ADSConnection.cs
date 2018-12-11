@@ -21,6 +21,7 @@ namespace PLC_CommunicationApp
         int FreeFanta;
         bool NoBottle;
         bool NoCover;
+        bool CorrectBottle;
 
         //HANDLE VARIABLES
         int[] hPalletArray = new int[25];
@@ -29,6 +30,7 @@ namespace PLC_CommunicationApp
         int hFreeFanta;
         int hNoBottle;
         int hNoCover;
+        int hCorrectBottle;
 
         ADSConnection(string netId, int adsPort)
         {
@@ -46,6 +48,7 @@ namespace PLC_CommunicationApp
             hFreeFanta = adsClient.CreateVariableHandle("MAIN.FreeFanta");
             hNoBottle = adsClient.CreateVariableHandle("MAIN.NoBottle");
             hNoCover = adsClient.CreateVariableHandle("MAIN.NoCover");
+            hCorrectBottle = adsClient.CreateVariableHandle("MAIN.CorrectBottle");
 
             Reading();
         }
@@ -64,7 +67,6 @@ namespace PLC_CommunicationApp
                 {
                     if (PalletArray[i] != (int)adsClient.ReadAny(hPalletArray[i], typeof(int)))
                     {
-                        //send message
                         PalletArray[i] = (int)adsClient.ReadAny(hPalletArray[i], typeof(int));
                     }
                     if (DrinksArray[i] != (int)adsClient.ReadAny(hDrinksArray[i], typeof(int)))
@@ -74,21 +76,43 @@ namespace PLC_CommunicationApp
                 }
 
                 //OTHER VARIABLES
-                if (FreeFanta != (ints)adsClient.ReadAny(hFreeFanta, typeof(int)))
+                if (FreeFanta != (int)adsClient.ReadAny(hFreeFanta, typeof(int)))
                 {
+                    FindBroker(1).Publish("/topics/plc3", "%FreeFanta," + (int)adsClient.ReadAny(hFreeFanta, typeof(int)) + "#");
                     FreeFanta = (int)adsClient.ReadAny(hFreeFanta, typeof(int));
                 }
                 if (FreeCola != (int)adsClient.ReadAny(hFreeCola, typeof(int)))
                 {
+                    FindBroker(1).Publish("/topics/plc3", "%FreeCola," + (int)adsClient.ReadAny(hFreeCola, typeof(int)) + "#");
                     FreeCola = (int)adsClient.ReadAny(hFreeCola, typeof(int));
                 }
-                if (NoCover != (bool)adsClient.ReadAny(hNoCover, typeof(bool)))
+                if (NoCover != (bool)adsClient.ReadAny(hNoCover, typeof(bool)) && (bool)adsClient.ReadAny(hNoCover, typeof(bool)) == true)
+                {
+                    FindBroker(1).Publish("/topics/plc3", "%NoCover#");
+                    NoCover = (bool)adsClient.ReadAny(hNoCover, typeof(bool));
+                }
+                if (NoCover != (bool)adsClient.ReadAny(hNoCover, typeof(bool)) && (bool)adsClient.ReadAny(hNoCover, typeof(bool)) == false)
                 {
                     NoCover = (bool)adsClient.ReadAny(hNoCover, typeof(bool));
                 }
-                if (NoBottle != (bool)adsClient.ReadAny(hNoBottle, typeof(bool)))
+                if (NoBottle != (bool)adsClient.ReadAny(hNoBottle, typeof(bool)) && (bool)adsClient.ReadAny(hNoBottle, typeof(bool)) == true)
+                {
+                    FindBroker(1).Publish("/topics/plc3", "%NoBottle#");
+                    NoBottle = (bool)adsClient.ReadAny(hNoBottle, typeof(bool));
+                }
+                if (NoBottle != (bool)adsClient.ReadAny(hNoBottle, typeof(bool)) && (bool)adsClient.ReadAny(hNoBottle, typeof(bool)) == false)
                 {
                     NoBottle = (bool)adsClient.ReadAny(hNoBottle, typeof(bool));
+                }
+                if (CorrectBottle != (bool)adsClient.ReadAny(hCorrectBottle, typeof(bool)) && (bool)adsClient.ReadAny(hCorrectBottle, typeof(bool))== true)
+                {
+                    FindBroker(1).Publish("/topics/plc3", "%CorrectBottle#");
+                    CorrectBottle = (bool)adsClient.ReadAny(hCorrectBottle, typeof(bool));
+                }
+                if (CorrectBottle != (bool)adsClient.ReadAny(hCorrectBottle, typeof(bool)) && (bool)adsClient.ReadAny(hCorrectBottle, typeof(bool)) == false)
+                {
+                    FindBroker(1).Publish("/topics/plc3", "%Free#");
+                    CorrectBottle = (bool)adsClient.ReadAny(hCorrectBottle, typeof(bool));
                 }
             }
             catch (Exception ex)
@@ -150,42 +174,6 @@ namespace PLC_CommunicationApp
                     return broker;
                 }
             }
-
-            return null;
-        }
-
-        public bool PublishTo(int brokerID, string topic, string message)
-        {
-            if(string.IsNullOrEmpty(topic))
-            {
-                throw new ArgumentException("topic == null or empty");
-            }
-
-            if (string.IsNullOrEmpty(message))
-            {
-                throw new ArgumentException("message == null or empty");
-            }
-
-            MQTTClient foundBroker = FindBroker(brokerID);
-            if (foundBroker != null)
-            {
-                // publish to found connection
-                foundBroker.Publish(topic, message);
-
-                return true;
-            }
-
-            return false;
-        }
-
-        public string ReadNextMessageFrom(int brokerID)
-        {
-            MQTTClient foundBroker = FindBroker(brokerID);
-            if(foundBroker != null)
-            {
-                return foundBroker.Read();
-            }
-
             return null;
         }
     }
