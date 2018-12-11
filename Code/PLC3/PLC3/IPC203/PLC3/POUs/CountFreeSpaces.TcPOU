@@ -18,7 +18,7 @@ END_VAR
       <ST><![CDATA[FreeCola := 0;
 FreeFanta := 0;
 
-FOR Counter:=1 TO 25 DO //sizeof array werkt niet
+FOR Counter:=1 TO 25 DO
  	IF NOT PalletArray[Counter] THEN
 		IF DrinkArray[Counter] = Drinks.Cola THEN
 			FreeCola:= FreeCola + 1;

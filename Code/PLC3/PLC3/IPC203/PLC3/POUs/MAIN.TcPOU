@@ -15,9 +15,9 @@ VAR
 	//Eigen trigger booleans
 	InitYReady : BOOL;
 	InitXReady : BOOL;
-	droppingDown : BOOL; //test
+	droppingDown : BOOL;
 	
-	TimerTest1 : TIME;
+	TimeAfterPickup : TIME;
 	TimerResult : TIME;
 	
 	Move_Arm : MoveArm;
@@ -32,7 +32,7 @@ VAR
 	
 	//messages voor Nicky & Jens
 	BottleAvailable : BOOL;
-	CorrectDelivery : BOOL;
+	CorrectBottle : BOOL;
 	NoCover : BOOL;
 	NoBottle : BOOL;
 	WrongDrink : BOOL;
@@ -42,10 +42,7 @@ VAR
 	StartPos : INT;
 	ErrorPos: INT;
 	CurrentPos : INT;
-	
-	
-END_VAR
-]]></Declaration>
+END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[PulseTimer1(IN:=GVL_IO.Start_button, PT:=T#150MS);
 Timer1(IN:= GVL_IO.a_1_Vertical_Zaxis_downward, PT:= T#10MS);
@@ -81,7 +78,7 @@ States.Init:
 			NoCover := FALSE;
 			NoBottle := FALSE;
 			WrongDrink:= FALSE;
-			CorrectDelivery := FALSE;
+			CorrectBottle := FALSE;
 			ErrorPos:= 666;
 			StartPos:= 30;
 			ColaFanta := drinks.Cola;
@@ -94,7 +91,7 @@ States.Idle:
 			BottleAvailable := TRUE;
 		END_IF
 		//==============================================================
-		CorrectDelivery := FALSE;
+		CorrectBottle:= FALSE;
 		Count_Free_Spaces(DrinkArray:=DrinkArray, PalletArray:= PalletArray);
 		FreeCola := Count_Free_Spaces.FreeCola;
 		FreeFanta := Count_Free_Spaces.FreeFanta;
@@ -105,14 +102,16 @@ States.Idle:
 				WrongDrink := TRUE;
 				CurrentState := States.ManualCheck;
 			ELSE
-				CorrectDelivery := TRUE;
+				CorrectBottle := TRUE;
 				NoCover := FALSE;
 				NoBottle := FALSE;
 				CurrentState := States.MoveToPickUp;
 			END_IF
 		ELSIF BottleAvailable AND NOT GVL_IO.dp1_Can_detection THEN
 			NoBottle := TRUE;
+			NoCover :=TRUE;
 		ELSIF BottleAvailable AND NOT GVL_IO.dp2_Cover_detection THEN
+			NoBottle := FALSE;
 			NoCover := TRUE;
 		END_IF
 		BottleAvailable := FALSE;
@@ -156,14 +155,14 @@ States.DropDown:
 		IF GVL_IO.a_0_Vertical_Zaxis_upward THEN
 			GVL_IO.Aplus_Vert_axis_downwards := TRUE;
 			droppingDown := TRUE;
-			TimerTest1 := TIME();
+			TimeAfterPickup := TIME();
 		END_IF
 		
 		
 		IF 	GVL_IO.a_1_Vertical_Zaxis_downward THEN
 			GVL_IO.Vplus_Vacuum_start := FALSE;
 			IF Timer1.Q THEN
-				TimerResult := TIME() - TimerTest1;
+				TimerResult := TIME() - TimeAfterPickup;
 				droppingDown := FALSE;
 				CurrentState := States.DropUp;
 			END_IF
@@ -223,7 +222,10 @@ END_CASE	]]></ST>
       <LineId Id="1352" Count="0" />
       <LineId Id="1350" Count="0" />
       <LineId Id="1365" Count="1" />
-      <LineId Id="895" Count="1" />
+      <LineId Id="1422" Count="0" />
+      <LineId Id="895" Count="0" />
+      <LineId Id="1423" Count="0" />
+      <LineId Id="896" Count="0" />
       <LineId Id="1281" Count="0" />
       <LineId Id="1364" Count="0" />
       <LineId Id="907" Count="1" />
