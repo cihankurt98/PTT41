@@ -11,3 +11,10 @@ C:\Users\rjmku\Documents\School\Jaar2\S4\3_DI_Proftaak\Git\PTT41\Code\PLC-Commun
 C:\Users\rjmku\Documents\School\Jaar2\S4\3_DI_Proftaak\Git\PTT41\Code\PLC-CommunicationApp\PLC-CommunicationApp\obj\Release\PLC-CommunicationApp.csproj.CopyComplete
 C:\Users\rjmku\Documents\School\Jaar2\S4\3_DI_Proftaak\Git\PTT41\Code\PLC-CommunicationApp\PLC-CommunicationApp\obj\Release\PLC-CommunicationApp.exe
 C:\Users\rjmku\Documents\School\Jaar2\S4\3_DI_Proftaak\Git\PTT41\Code\PLC-CommunicationApp\PLC-CommunicationApp\obj\Release\PLC-CommunicationApp.pdb
+D:\school\Code\S4\PTT\PTT41\Code\PLC-CommunicationApp\PLC-CommunicationApp\obj\Release\PLC-CommunicationApp.csprojAssemblyReference.cache
+D:\school\Code\S4\PTT\PTT41\Code\PLC-CommunicationApp\PLC-CommunicationApp\obj\Release\PLC_CommunicationApp.Form1.resources
+D:\school\Code\S4\PTT\PTT41\Code\PLC-CommunicationApp\PLC-CommunicationApp\obj\Release\PLC_CommunicationApp.Properties.Resources.resources
+D:\school\Code\S4\PTT\PTT41\Code\PLC-CommunicationApp\PLC-CommunicationApp\obj\Release\PLC-CommunicationApp.csproj.GenerateResource.cache
+D:\school\Code\S4\PTT\PTT41\Code\PLC-CommunicationApp\PLC-CommunicationApp\obj\Release\PLC-CommunicationApp.csproj.CoreCompileInputs.cache
+D:\school\Code\S4\PTT\PTT41\Code\PLC-CommunicationApp\PLC-CommunicationApp\obj\Release\PLC-CommunicationApp.exe
+D:\school\Code\S4\PTT\PTT41\Code\PLC-CommunicationApp\PLC-CommunicationApp\obj\Release\PLC-CommunicationApp.pdb

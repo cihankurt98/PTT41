@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TwinCAT.Ads;
 
 namespace PLC_CommunicationApp
 {
@@ -11,21 +12,108 @@ namespace PLC_CommunicationApp
         public List<MQTTClient> MQTTBrokers { get => new List<MQTTClient>(MQTTBrokers); private set { } }
         public string NetId { get => string.Copy(NetId); private set { } }
         public string AdsPort { get => string.Copy(AdsPort); private set { } }
+        public TcAdsClient adsClient { get; private set; }
 
-        ADSConnection(string netId, string adsPort)
+        //VARIABLES
+        int[] PalletArray = new int[25];
+        int[] DrinksArray = new int[25];
+        int FreeCola;
+        int FreeFanta;
+        bool NoBottle;
+        bool NoCover;
+
+        //HANDLE VARIABLES
+        int[] hPalletArray = new int[25];
+        int[] hDrinksArray = new int[25];
+        int hFreeCola;
+        int hFreeFanta;
+        int hNoBottle;
+        int hNoCover;
+
+        ADSConnection(string netId, int adsPort)
         {
-            if (string.IsNullOrEmpty(netId))
-            {
-                throw new ArgumentException("_netId == null or empty");
-            }
+            adsClient = new TcAdsClient();
+            adsClient.Connect(netId, adsPort);
 
-            if (string.IsNullOrEmpty(adsPort))
+            //ARRAYS
+            for (int i = 0; i < 25; i++)
             {
-                throw new ArgumentException("_adsPort == null or empty");
+                hPalletArray[i] = adsClient.CreateVariableHandle("MAIN.PalletArray[" + (i + 1) + "]");
+                hDrinksArray[i] = adsClient.CreateVariableHandle("MAIN.DrinksArray[" + (i + 1) + "]");
             }
+            //OTHER VARIABLES
+            hFreeCola = adsClient.CreateVariableHandle("MAIN.FreeCola");
+            hFreeFanta = adsClient.CreateVariableHandle("MAIN.FreeFanta");
+            hNoBottle = adsClient.CreateVariableHandle("MAIN.NoBottle");
+            hNoCover = adsClient.CreateVariableHandle("MAIN.NoCover");
 
-            NetId = netId;
-            AdsPort = adsPort;
+            Reading();
+        }
+
+        public void Disconnect()
+        {
+            adsClient.Dispose();
+        }
+
+        public void Reading()
+        {
+            try
+            {
+                //ARRAYS
+                for (int i = 0; i < 25; i++)
+                {
+                    if (PalletArray[i] != (int)adsClient.ReadAny(hPalletArray[i], typeof(int)))
+                    {
+                        //send message
+                        PalletArray[i] = (int)adsClient.ReadAny(hPalletArray[i], typeof(int));
+                    }
+                    if (DrinksArray[i] != (int)adsClient.ReadAny(hDrinksArray[i], typeof(int)))
+                    {
+                        DrinksArray[i] = (int)adsClient.ReadAny(hDrinksArray[i], typeof(int));
+                    }
+                }
+
+                //OTHER VARIABLES
+                if (FreeFanta != (ints)adsClient.ReadAny(hFreeFanta, typeof(int)))
+                {
+                    FreeFanta = (int)adsClient.ReadAny(hFreeFanta, typeof(int));
+                }
+                if (FreeCola != (int)adsClient.ReadAny(hFreeCola, typeof(int)))
+                {
+                    FreeCola = (int)adsClient.ReadAny(hFreeCola, typeof(int));
+                }
+                if (NoCover != (bool)adsClient.ReadAny(hNoCover, typeof(bool)))
+                {
+                    NoCover = (bool)adsClient.ReadAny(hNoCover, typeof(bool));
+                }
+                if (NoBottle != (bool)adsClient.ReadAny(hNoBottle, typeof(bool)))
+                {
+                    NoBottle = (bool)adsClient.ReadAny(hNoBottle, typeof(bool));
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+                
+            }
+        }
+
+        public void Writing()
+        {
+            try
+            {
+                //DE VARIABELEN DIE JE WILT SCHRIJVEN
+                //adsClient.WriteAny(htest1, int.Parse(textBox1.Text));
+                for (int i = 0; i < 25; i++)
+                {
+                    adsClient.WriteAny(hPalletArray[i], true);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            Reading();
         }
 
         public bool AddBroker(string IP, int bufferLength, byte QOS, int ID)
