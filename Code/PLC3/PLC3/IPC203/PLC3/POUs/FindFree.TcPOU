@@ -24,9 +24,7 @@ FOR Counter:=1 TO 25 DO
 		FreePosition := Counter;
 		END_IF
 	END_IF
-END_FOR
-
-//counter gaat van 25 naar 1 niet van 1 naar 25.]]></ST>
+END_FOR]]></ST>
     </Implementation>
     <LineIds Name="FindFree">
       <LineId Id="23" Count="1" />
@@ -35,8 +33,6 @@ END_FOR
       <LineId Id="25" Count="0" />
       <LineId Id="20" Count="0" />
       <LineId Id="9" Count="0" />
-      <LineId Id="42" Count="0" />
-      <LineId Id="41" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

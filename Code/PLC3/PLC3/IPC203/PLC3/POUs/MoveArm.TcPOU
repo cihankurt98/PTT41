@@ -13,7 +13,7 @@ VAR
 	Y: INT;
 	StartTimer:BOOL;
 	
-	PulseTimer2: TP;
+	PulseTimer: TP;
 	BusyFtrigX : F_Trig;
 	BusyFtrigY : F_Trig;
 	ReadyX : BOOL;
@@ -29,7 +29,6 @@ IF( Position < 1 OR Position > 30)
 END_IF
 
 // Calculate X & Y position on Palletiser
-// 
 X := (Position - 1) MOD 5;
 
 // Position-1 / 5 with ROUND to floor 
@@ -43,12 +42,10 @@ GVL_IO.INY0_from_Input0_translY:= Y.0;
 GVL_IO.INY1_from_Input1_translY:= Y.1;
 GVL_IO.INY2_from_Input2_translY:= Y.2;
 
+PulseTimer(IN:=StartTimer, PT:=T#150MS);
 
-
-PulseTimer2(IN:=StartTimer, PT:=T#150MS);
-
-GVL_IO.DRIVEX_MOVE_tableX := PulseTimer2.Q;
-GVL_IO.DRIVEY_MOVE_translY := PulseTimer2.Q;
+GVL_IO.DRIVEX_MOVE_tableX := PulseTimer.Q;
+GVL_IO.DRIVEY_MOVE_translY := PulseTimer.Q;
 StartTimer:= TRUE;
 		
 BusyFtrigX ( clk := gvl_io.BUSYX_BUSY_tableX ); 
@@ -74,7 +71,7 @@ END_IF]]></ST>
     <LineIds Name="MoveArm">
       <LineId Id="110" Count="1" />
       <LineId Id="10" Count="4" />
-      <LineId Id="16" Count="1" />
+      <LineId Id="17" Count="0" />
       <LineId Id="102" Count="0" />
       <LineId Id="19" Count="0" />
       <LineId Id="9" Count="0" />
@@ -84,7 +81,6 @@ END_IF]]></ST>
       <LineId Id="48" Count="1" />
       <LineId Id="47" Count="0" />
       <LineId Id="50" Count="1" />
-      <LineId Id="107" Count="1" />
       <LineId Id="91" Count="1" />
       <LineId Id="59" Count="2" />
       <LineId Id="114" Count="0" />
