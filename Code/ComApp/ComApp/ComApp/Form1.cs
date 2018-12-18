@@ -45,6 +45,7 @@ namespace ComApp
                 btnCorDMQTT.Text = "Connect To MQTT";
                 ADSConnected = false;
                 MQTTConnected = false;
+                ADS.Disconnect();
                 ADS = null;
             }
             else
