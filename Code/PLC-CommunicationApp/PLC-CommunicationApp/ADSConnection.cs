@@ -122,7 +122,7 @@ namespace PLC_CommunicationApp
             }
         }
 
-        public void Writing()
+        public void Writing(string msg)
         {
             try
             {
