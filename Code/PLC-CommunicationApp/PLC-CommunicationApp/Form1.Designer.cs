@@ -48,26 +48,6 @@
             this.readBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // CreateBtn
-            // 
-            this.CreateBtn.Location = new System.Drawing.Point(12, 12);
-            this.CreateBtn.Name = "CreateBtn";
-            this.CreateBtn.Size = new System.Drawing.Size(75, 23);
-            this.CreateBtn.TabIndex = 0;
-            this.CreateBtn.Text = "Create";
-            this.CreateBtn.UseVisualStyleBackColor = true;
-            this.CreateBtn.Click += new System.EventHandler(this.CreateBtn_Click);
-            // 
-            // ConnectBtn
-            // 
-            this.ConnectBtn.Location = new System.Drawing.Point(12, 41);
-            this.ConnectBtn.Name = "ConnectBtn";
-            this.ConnectBtn.Size = new System.Drawing.Size(75, 23);
-            this.ConnectBtn.TabIndex = 0;
-            this.ConnectBtn.Text = "Connect";
-            this.ConnectBtn.UseVisualStyleBackColor = true;
-            this.ConnectBtn.Click += new System.EventHandler(this.ConnectBtn_Click);
-            // 
             // BrokerIpTB
             // 
             this.BrokerIpTB.Location = new System.Drawing.Point(93, 14);
@@ -136,16 +116,6 @@
             this.label4.TabIndex = 2;
             this.label4.Text = "password";
             // 
-            // PublishBtn
-            // 
-            this.PublishBtn.Location = new System.Drawing.Point(12, 70);
-            this.PublishBtn.Name = "PublishBtn";
-            this.PublishBtn.Size = new System.Drawing.Size(75, 23);
-            this.PublishBtn.TabIndex = 0;
-            this.PublishBtn.Text = "Publish";
-            this.PublishBtn.UseVisualStyleBackColor = true;
-            this.PublishBtn.Click += new System.EventHandler(this.PublishBtn_Click);
-            // 
             // PubMsgTB
             // 
             this.PubMsgTB.Location = new System.Drawing.Point(93, 72);
@@ -172,16 +142,6 @@
             this.subscribeLB.Size = new System.Drawing.Size(408, 88);
             this.subscribeLB.TabIndex = 3;
             // 
-            // SubscribeBtn
-            // 
-            this.SubscribeBtn.Location = new System.Drawing.Point(13, 100);
-            this.SubscribeBtn.Name = "SubscribeBtn";
-            this.SubscribeBtn.Size = new System.Drawing.Size(74, 22);
-            this.SubscribeBtn.TabIndex = 4;
-            this.SubscribeBtn.Text = "subscribe";
-            this.SubscribeBtn.UseVisualStyleBackColor = true;
-            this.SubscribeBtn.Click += new System.EventHandler(this.SubscribeBtn_Click);
-            // 
             // TopicTB
             // 
             this.TopicTB.Location = new System.Drawing.Point(93, 102);
@@ -198,16 +158,6 @@
             this.label6.Size = new System.Drawing.Size(59, 12);
             this.label6.TabIndex = 2;
             this.label6.Text = "sub topic";
-            // 
-            // readBtn
-            // 
-            this.readBtn.Location = new System.Drawing.Point(12, 128);
-            this.readBtn.Name = "readBtn";
-            this.readBtn.Size = new System.Drawing.Size(74, 22);
-            this.readBtn.TabIndex = 4;
-            this.readBtn.Text = "read";
-            this.readBtn.UseVisualStyleBackColor = true;
-            this.readBtn.Click += new System.EventHandler(this.readBtn_Click);
             // 
             // Form1
             // 

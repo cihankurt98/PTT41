@@ -123,7 +123,9 @@ namespace PLC_CommunicationApp
             String recvMessage = "Received = " + Encoding.UTF8.GetString(e.Message) + " on topic " + e.Topic;
             Debug.WriteLine(recvMessage);
 
-            buffer.Write( Encoding.UTF8.GetString(e.Message) );
+            //buffer.Write( Encoding.UTF8.GetString(e.Message) );
+
+            adsCon.Writing(Encoding.UTF8.GetString(e.Message));
 
             recvMessage = String.Empty;
 
