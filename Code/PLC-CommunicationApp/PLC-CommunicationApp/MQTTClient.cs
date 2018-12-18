@@ -17,9 +17,10 @@ namespace PLC_CommunicationApp
         private MqttClient client;
         private bool ackPub;
         private RollingBuffer buffer;
+        private ADSConnection adsCon;
 
 
-        public MQTTClient(string IP, int bufferLength, byte QOS, int ID)
+        public MQTTClient(string IP, int bufferLength, byte QOS, int ID, ADSConnection ads)
         {
             if(bufferLength < 1)
             {
@@ -31,12 +32,19 @@ namespace PLC_CommunicationApp
                 throw new ArgumentOutOfRangeException("QOS");
             }
 
+            if(ads == null)
+            {
+                throw new ArgumentNullException("ads");
+            }
+
             buffer = new RollingBuffer(bufferLength);
             this.QOS = QOS;
             this.ID = ID;
 
             ackPub = true;
             client = new MqttClient(IP);
+
+            adsCon = ads;
         }
 
         public void Connect(string username, string password)

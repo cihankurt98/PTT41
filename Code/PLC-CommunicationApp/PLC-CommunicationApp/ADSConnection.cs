@@ -149,7 +149,7 @@ namespace PLC_CommunicationApp
 
             try
             {
-                MQTTBrokers.Add(new MQTTClient(IP, bufferLength, QOS, ID));
+                MQTTBrokers.Add(new MQTTClient(IP, bufferLength, QOS, ID, this));
             }
             catch (ArgumentNullException e)
             {

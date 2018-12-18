@@ -53,7 +53,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ADSClient.cs" />
     <Compile Include="ADSConnection.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
