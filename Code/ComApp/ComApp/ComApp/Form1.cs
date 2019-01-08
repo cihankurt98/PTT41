@@ -52,6 +52,8 @@ namespace ComApp
             {
                 try
                 {
+                    MessageBox.Show("Given ADS IP: " + txtBoxADSIP.Text);
+                    MessageBox.Show("Given ADS Port: " + txtBoxADSPort.Text);
                     ADS = new ADSConnection(txtBoxADSIP.Text, Convert.ToInt32(txtBoxADSPort.Text));
                 }
                 catch (Exception ex)
@@ -84,6 +86,8 @@ namespace ComApp
             {
                 try
                 {
+                    MessageBox.Show("Given MQTT IP: " + txtBoxMQTTIP.Text);
+
                     if (!ADS.AddBroker(txtBoxMQTTIP.Text, qos, MQTTHandle))
                     {
                         MessageBox.Show("Broker connection could not be created.");
