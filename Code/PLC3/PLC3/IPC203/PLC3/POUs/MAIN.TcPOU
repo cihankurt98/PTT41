@@ -46,7 +46,7 @@ END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[PulseTimer1(IN:=GVL_IO.Start_button, PT:=T#150MS);
 Timer1(IN:= GVL_IO.a_1_Vertical_Zaxis_downward, PT:= T#10MS);
-Timer2(IN:=droppingDown AND NOT GVL_IO.a_1_Vertical_Zaxis_downward, PT:=T#280MS);
+Timer2(IN:=droppingDown AND NOT GVL_IO.a_1_Vertical_Zaxis_downward, PT:=T#285MS);
 
 CASE CurrentState OF
 States.Init:
