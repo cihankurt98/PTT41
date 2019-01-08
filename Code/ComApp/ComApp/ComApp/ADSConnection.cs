@@ -43,7 +43,7 @@ namespace ComApp
             for (int i = 0; i < 25; i++)
             {
                 hPalletArray[i] = adsClient.CreateVariableHandle("MAIN.PalletArray[" + (i + 1) + "]");
-                hDrinksArray[i] = adsClient.CreateVariableHandle("MAIN.DrinksArray[" + (i + 1) + "]");
+                hDrinksArray[i] = adsClient.CreateVariableHandle("MAIN.DrinkArray[" + (i + 1) + "]");
             }
             //OTHER VARIABLES
             hFreeCola = adsClient.CreateVariableHandle("MAIN.FreeCola");
