@@ -27,13 +27,13 @@ namespace ComApp
             ADS = null;
 
             lblADSIP.Text = "ADS IP:";
-            txtBoxADSIP.Text = "";
+            txtBoxADSIP.Text = "5.17.58.102.1.1";
             lblADSPort.Text = "ADS Port:";
-            txtBoxADSPort.Text = "";
+            txtBoxADSPort.Text = "851";
             btnCorDADS.Text = "Connect To ADS";
 
             lblMQTTIP.Text = "MQTT IP:";
-            txtBoxMQTTIP.Text = "";
+            txtBoxMQTTIP.Text = "192.168.202.44";
             btnCorDMQTT.Text = "Connect To MQTT";
 
             this.FormClosed += Form_Closed;
@@ -59,8 +59,8 @@ namespace ComApp
             {
                 try
                 {
-                    MessageBox.Show("Given ADS IP: " + txtBoxADSIP.Text);
-                    MessageBox.Show("Given ADS Port: " + txtBoxADSPort.Text);
+                    //MessageBox.Show("Given ADS IP: " + txtBoxADSIP.Text);
+                    //MessageBox.Show("Given ADS Port: " + txtBoxADSPort.Text);
                     ADS = new ADSConnection(txtBoxADSIP.Text, Convert.ToInt32(txtBoxADSPort.Text));
                 }
                 catch (Exception ex)
@@ -93,15 +93,18 @@ namespace ComApp
             {
                 try
                 {
-                    MessageBox.Show("Given MQTT IP: " + txtBoxMQTTIP.Text);
+                    //MessageBox.Show("Given MQTT IP: " + txtBoxMQTTIP.Text);
 
                     if (!ADS.AddBroker(txtBoxMQTTIP.Text, qos, MQTTHandle))
                     {
                         MessageBox.Show("Broker connection could not be created.");
-                        ADS.MQTTBrokers[0].Connect("username", "password");
-                        ADS.MQTTBrokers[0].Subscribe("/test/topic");
                         return;
                     }
+                    string topic = "/test/topic";
+
+                    ADS.MQTTBrokers[0].Connect("username", "password");
+                    ADS.MQTTBrokers[0].Subscribe(topic);
+                    ADS.Reading(topic);
                 }
                 catch (Exception ex)
                 {

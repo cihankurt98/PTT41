@@ -55,7 +55,7 @@ namespace ComApp
             hBottleAvailable = adsClient.CreateVariableHandle("MAIN.BottleAvailable");
             hColaFanta = adsClient.CreateVariableHandle("MAIN.ColaFanta");
 
-            Reading();
+           
         }
 
         public void Disconnect()
@@ -63,7 +63,7 @@ namespace ComApp
             adsClient.Dispose();
         }
 
-        public void Reading()
+        public void Reading(string topic)
         {
             try
             {
@@ -83,17 +83,17 @@ namespace ComApp
                 //OTHER VARIABLES
                 if (FreeFanta != (int)adsClient.ReadAny(hFreeFanta, typeof(int)))
                 {
-                    FindBroker(1).Publish("/topics/plc3", "%FreeFanta," + (int)adsClient.ReadAny(hFreeFanta, typeof(int)) + "#");
+                    FindBroker(1).Publish(topic, "%FreeFanta," + (int)adsClient.ReadAny(hFreeFanta, typeof(int)) + "#");
                     FreeFanta = (int)adsClient.ReadAny(hFreeFanta, typeof(int));
                 }
                 if (FreeCola != (int)adsClient.ReadAny(hFreeCola, typeof(int)))
                 {
-                    FindBroker(1).Publish("/topics/plc3", "%FreeCola," + (int)adsClient.ReadAny(hFreeCola, typeof(int)) + "#");
+                    FindBroker(1).Publish(topic, "%FreeCola," + (int)adsClient.ReadAny(hFreeCola, typeof(int)) + "#");
                     FreeCola = (int)adsClient.ReadAny(hFreeCola, typeof(int));
                 }
                 if (NoCover != (bool)adsClient.ReadAny(hNoCover, typeof(bool)) && (bool)adsClient.ReadAny(hNoCover, typeof(bool)) == true)
                 {
-                    FindBroker(1).Publish("/topics/plc3", "%NoCover#");
+                    FindBroker(1).Publish(topic, "%NoCover#");
                     NoCover = (bool)adsClient.ReadAny(hNoCover, typeof(bool));
                 }
                 if (NoCover != (bool)adsClient.ReadAny(hNoCover, typeof(bool)) && (bool)adsClient.ReadAny(hNoCover, typeof(bool)) == false)
@@ -102,7 +102,7 @@ namespace ComApp
                 }
                 if (NoBottle != (bool)adsClient.ReadAny(hNoBottle, typeof(bool)) && (bool)adsClient.ReadAny(hNoBottle, typeof(bool)) == true)
                 {
-                    FindBroker(1).Publish("/topics/plc3", "%NoBottle#");
+                    FindBroker(1).Publish(topic, "%NoBottle#");
                     NoBottle = (bool)adsClient.ReadAny(hNoBottle, typeof(bool));
                 }
                 if (NoBottle != (bool)adsClient.ReadAny(hNoBottle, typeof(bool)) && (bool)adsClient.ReadAny(hNoBottle, typeof(bool)) == false)
@@ -111,12 +111,12 @@ namespace ComApp
                 }
                 if (CorrectBottle != (bool)adsClient.ReadAny(hCorrectBottle, typeof(bool)) && (bool)adsClient.ReadAny(hCorrectBottle, typeof(bool)) == true)
                 {
-                    FindBroker(1).Publish("/topics/plc3", "%CorrectBottle#");
+                    FindBroker(1).Publish(topic, "%CorrectBottle#");
                     CorrectBottle = (bool)adsClient.ReadAny(hCorrectBottle, typeof(bool));
                 }
                 if (CorrectBottle != (bool)adsClient.ReadAny(hCorrectBottle, typeof(bool)) && (bool)adsClient.ReadAny(hCorrectBottle, typeof(bool)) == false)
                 {
-                    FindBroker(1).Publish("/topics/plc3", "%Free#");
+                    FindBroker(1).Publish(topic, "%Free#");
                     CorrectBottle = (bool)adsClient.ReadAny(hCorrectBottle, typeof(bool));
                 }
             }
@@ -134,11 +134,11 @@ namespace ComApp
                 switch (msg)
                 {
                     case "%Cola#":
-                        adsClient.WriteAny(hColaFanta, 0);
+                        adsClient.WriteAny(hColaFanta, false);
                         adsClient.WriteAny(hBottleAvailable, true);
                         break;
                     case "%Fanta#":
-                        adsClient.WriteAny(hColaFanta, 1);
+                        adsClient.WriteAny(hColaFanta, true);
                         adsClient.WriteAny(hBottleAvailable, true);
                         break;
                 }
@@ -147,7 +147,7 @@ namespace ComApp
             {
                 throw new Exception(ex.Message);
             }
-            Reading();
+            Reading("/test/topic");
         }
 
         public bool AddBroker(string IP, byte QOS, int ID)

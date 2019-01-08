@@ -113,6 +113,7 @@ namespace ComApp
         /// <param name="e"></param>
         void client_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
         {
+            adsCon.Reading("/test/topic");
             String recvMessage = "Received = " + Encoding.UTF8.GetString(e.Message) + " on topic " + e.Topic;
             Debug.WriteLine(recvMessage);
 
