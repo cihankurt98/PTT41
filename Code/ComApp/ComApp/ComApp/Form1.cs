@@ -92,6 +92,7 @@ namespace ComApp
                     {
                         MessageBox.Show("Broker connection could not be created.");
                         ADS.MQTTBrokers[0].Connect("username", "password");
+                        ADS.MQTTBrokers[0].Subscribe("/test/topic");
                         return;
                     }
                 }

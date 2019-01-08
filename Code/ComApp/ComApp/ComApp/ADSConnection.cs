@@ -9,7 +9,7 @@ namespace ComApp
 {
     class ADSConnection
     {
-        public List<MQTTClient> MQTTBrokers { get => new List<MQTTClient>(MQTTBrokers); private set { } }
+        public List<MQTTClient> MQTTBrokers { get; private set; }
         public string NetId { get => string.Copy(NetId); private set { } }
         public string AdsPort { get => string.Copy(AdsPort); private set { } }
         public TcAdsClient adsClient { get; private set; }
@@ -38,6 +38,7 @@ namespace ComApp
         {
             adsClient = new TcAdsClient();
             adsClient.Connect(netId, adsPort);
+            MQTTBrokers = new List<MQTTClient>();
 
             //ARRAYS
             for (int i = 0; i < 25; i++)
