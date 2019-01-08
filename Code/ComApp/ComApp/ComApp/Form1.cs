@@ -32,7 +32,7 @@ namespace ComApp
             txtBoxADSPort.Text = "";
             btnCorDADS.Text = "Connect To ADS";
 
-            lblADSIP.Text = "MQTT IP:";
+            lblMQTTIP.Text = "MQTT IP:";
             txtBoxMQTTIP.Text = "";
             btnCorDMQTT.Text = "Connect To MQTT";
         }
@@ -87,6 +87,7 @@ namespace ComApp
                     if (!ADS.AddBroker(txtBoxMQTTIP.Text, qos, MQTTHandle))
                     {
                         MessageBox.Show("Broker connection could not be created.");
+                        ADS.MQTTBrokers[0].Connect("username", "password");
                         return;
                     }
                 }
