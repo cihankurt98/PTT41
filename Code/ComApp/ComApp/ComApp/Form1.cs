@@ -35,6 +35,13 @@ namespace ComApp
             lblMQTTIP.Text = "MQTT IP:";
             txtBoxMQTTIP.Text = "";
             btnCorDMQTT.Text = "Connect To MQTT";
+
+            this.FormClosed += Form_Closed;
+        }
+
+        private void Form_Closed(object sender, FormClosedEventArgs e)
+        {
+            ADS.Disconnect();
         }
 
         private void btnCorDADS_Click(object sender, EventArgs e)
