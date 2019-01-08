@@ -31,6 +31,8 @@ namespace PLC_CommunicationApp
         int hNoBottle;
         int hNoCover;
         int hCorrectBottle;
+        int hBottleAvailable;
+        int hColaFanta;
 
         ADSConnection(string netId, int adsPort)
         {
@@ -49,6 +51,8 @@ namespace PLC_CommunicationApp
             hNoBottle = adsClient.CreateVariableHandle("MAIN.NoBottle");
             hNoCover = adsClient.CreateVariableHandle("MAIN.NoCover");
             hCorrectBottle = adsClient.CreateVariableHandle("MAIN.CorrectBottle");
+            hBottleAvailable = adsClient.CreateVariableHandle("MAIN.BottleAvailable");
+            hColaFanta = adsClient.CreateVariableHandle("MAIN.ColaFanta");
 
             Reading();
         }
@@ -126,11 +130,16 @@ namespace PLC_CommunicationApp
         {
             try
             {
-                //DE VARIABELEN DIE JE WILT SCHRIJVEN
-                //adsClient.WriteAny(htest1, int.Parse(textBox1.Text));
-                for (int i = 0; i < 25; i++)
+                switch (msg)
                 {
-                    adsClient.WriteAny(hPalletArray[i], true);
+                    case "%Cola#":
+                        adsClient.WriteAny(hColaFanta, 0);
+                        adsClient.WriteAny(hBottleAvailable, true);
+                        break;
+                    case "%Fanta#":
+                        adsClient.WriteAny(hColaFanta, 1);
+                        adsClient.WriteAny(hBottleAvailable, true);
+                        break;
                 }
             }
             catch (Exception ex)
