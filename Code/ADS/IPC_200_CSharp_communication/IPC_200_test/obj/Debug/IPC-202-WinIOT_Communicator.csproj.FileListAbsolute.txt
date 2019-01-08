@@ -28,3 +28,13 @@ C:\Users\Nicky\Documents\Proftaak S4\PTT41\Code\ADS\IPC_200_CSharp_communication
 C:\Users\Nicky\Documents\Proftaak S4\PTT41\Code\ADS\IPC_200_CSharp_communication\IPC_200_test\obj\Debug\IPC-202-WinIOT_Communicator.csproj.CoreCompileInputs.cache
 C:\Users\Nicky\Documents\Proftaak S4\PTT41\Code\ADS\IPC_200_CSharp_communication\IPC_200_test\obj\Debug\IPC_200_test.exe
 C:\Users\Nicky\Documents\Proftaak S4\PTT41\Code\ADS\IPC_200_CSharp_communication\IPC_200_test\obj\Debug\IPC_200_test.pdb
+C:\Users\Cihan\OneDrive - Office 365 Fontys\School\Semester 4\PTT41\Code\ADS\IPC_200_CSharp_communication\IPC_200_test\bin\Debug\IPC_200_test.exe.config
+C:\Users\Cihan\OneDrive - Office 365 Fontys\School\Semester 4\PTT41\Code\ADS\IPC_200_CSharp_communication\IPC_200_test\bin\Debug\IPC_200_test.exe
+C:\Users\Cihan\OneDrive - Office 365 Fontys\School\Semester 4\PTT41\Code\ADS\IPC_200_CSharp_communication\IPC_200_test\bin\Debug\IPC_200_test.pdb
+C:\Users\Cihan\OneDrive - Office 365 Fontys\School\Semester 4\PTT41\Code\ADS\IPC_200_CSharp_communication\IPC_200_test\obj\Debug\IPC-202-WinIOT_Communicator.csprojResolveAssemblyReference.cache
+C:\Users\Cihan\OneDrive - Office 365 Fontys\School\Semester 4\PTT41\Code\ADS\IPC_200_CSharp_communication\IPC_200_test\obj\Debug\IPC_200_test.Main.resources
+C:\Users\Cihan\OneDrive - Office 365 Fontys\School\Semester 4\PTT41\Code\ADS\IPC_200_CSharp_communication\IPC_200_test\obj\Debug\IPC_200_test.Properties.Resources.resources
+C:\Users\Cihan\OneDrive - Office 365 Fontys\School\Semester 4\PTT41\Code\ADS\IPC_200_CSharp_communication\IPC_200_test\obj\Debug\IPC-202-WinIOT_Communicator.csproj.GenerateResource.cache
+C:\Users\Cihan\OneDrive - Office 365 Fontys\School\Semester 4\PTT41\Code\ADS\IPC_200_CSharp_communication\IPC_200_test\obj\Debug\IPC-202-WinIOT_Communicator.csproj.CoreCompileInputs.cache
+C:\Users\Cihan\OneDrive - Office 365 Fontys\School\Semester 4\PTT41\Code\ADS\IPC_200_CSharp_communication\IPC_200_test\obj\Debug\IPC_200_test.exe
+C:\Users\Cihan\OneDrive - Office 365 Fontys\School\Semester 4\PTT41\Code\ADS\IPC_200_CSharp_communication\IPC_200_test\obj\Debug\IPC_200_test.pdb

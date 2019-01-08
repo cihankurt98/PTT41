@@ -14,7 +14,7 @@ namespace IPC_200_test
 {
     public partial class Main : Form
     {
-        string PLCID = "145.93.160.174.1.1";
+        string PLCID = "5.17.58.102.1.1";
         int PLCPort = 851;
 
         TcAdsClient adsClient;
@@ -53,7 +53,7 @@ namespace IPC_200_test
             for (int i = 0; i < 25; i++)
             {
                 hPalletArray[i] = adsClient.CreateVariableHandle("MAIN.PalletArray[" + (i + 1) + "]");
-                hDrinksArray[i] = adsClient.CreateVariableHandle("MAIN.DrinksArray[" + (i + 1) + "]");
+                hDrinksArray[i] = adsClient.CreateVariableHandle("MAIN.DrinkArray[" + (i + 1) + "]");
             }
             //OTHER VARIABLES
             hFreeCola = adsClient.CreateVariableHandle("MAIN.FreeCola");
@@ -116,10 +116,12 @@ namespace IPC_200_test
             {
                 //DE VARIABELEN DIE JE WILT SCHRIJVEN
                 //adsClient.WriteAny(htest1, int.Parse(textBox1.Text));
-                for (int i = 0; i < 25; i++)
-                {
-                    adsClient.WriteAny(hPalletArray[i], true);
-                }
+                //for (int i = 0; i < 25; i++)
+                //{
+                //    adsClient.WriteAny(hPalletArray[i], true);
+                //}
+
+                adsClient.WriteAny(hFreeCola, true);
             }
             catch (Exception ex)
             {
